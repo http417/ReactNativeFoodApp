@@ -1,4 +1,9 @@
-*** ================== Installation Instructions: ================== ****
+*** ================== Installation Instructions (using the mobile Expo App) ================== ****
+This application is most easily viewed by running it on an Android or iPhone device with the Expo mobile client app connected to the same wireless network as your computer.
+
+Installation Prerequisites:
+- Node (
+
 
 
 *** ================== Issues: ================== ****
