@@ -1,9 +1,24 @@
 *** ================== Installation Instructions (using the mobile Expo App) ================== ****
+
 This application is most easily viewed by running it on an Android or iPhone device with the Expo mobile client app connected to the same wireless network as your computer.
 
 Installation Prerequisites:
-- Node (
+- Node 
 
+On your Computer:
+1) In a terminal 'cd' into your desired directory where you wish to install the project folder 'ReactNativeFoodApp'
+2) Clone the github repository with the command: "git clone git@github.com:christophercheng/ReactNativeFoodApp.git"
+3) 'cd' into the newly created project folder, 'ReactNativeFoodApp'
+4) Initiate the automated installs of the required packages with the command 'npm install'
+5) Run the app on your computer with the command 'npm start'
+6) Wait for a minute or so, and look out for a QR code image to be displayed.  You will capture this QR code with your mobile Expo App to launch the app on your phone.
+
+On your Phone:
+1) Download the Expo client in the Apple or Android app store.
+2) Once installed, open the Expo Client and click on the 'Scan QR Code' section
+3) The phone's camera shoudl be activated with a augmented targeting square.
+4) Aim the phone at the computer's displayed QR code such that it is within the augmented targeting square.
+5) If done properly, hte Expo app should automatically run the ReactNativeFoodApp
 
 
 *** ================== Issues: ================== ****
