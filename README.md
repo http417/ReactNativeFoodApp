@@ -1,4 +1,4 @@
-*** ================== Installation Instructions (using the mobile Expo App) ================== ****
+*** ==================     Installation Instructions (using the mobile Expo App)     ================== ****
 
 This application is most easily viewed by running it on an Android or iPhone device with the Expo mobile client app connected to the same wireless network as your computer.
 
@@ -20,8 +20,15 @@ On your Phone:
 4) Aim the phone at the computer's displayed QR code such that it is within the augmented targeting square.
 5) If done properly, hte Expo app should automatically run the ReactNativeFoodApp
 
+*** ==================     Installation Instructions (using the mobile Expo App)       ================== ****
 
-*** ================== Issues: ================== ****
+In order to run and develop the application on Android Studio or Apple Xcode, you must 'eject' the app.
+
+Detailed instructions are provided here:
+ 
+https://facebook.github.io/react-native/docs/getting-started.html
+
+*** ==================      Issues:       ================================================================ ****
 
  ** Funtionality Issues
   - authentication of user's credentials are mocked using local device AsynchStorage
