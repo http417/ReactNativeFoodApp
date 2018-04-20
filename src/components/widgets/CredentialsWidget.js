@@ -90,7 +90,7 @@ class CredentialsWidget extends React.Component {
           passwordText={this.state.password}
         />
         <Button
-          title="Sign In"
+          title={this.props.isSigningUp ? "Sign Up" : "Sign In"}
           disabled={!this.state.submitReady}
           onPress={this._onSubmit}
         />

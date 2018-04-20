@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
 });
 
 export default ({ signedIn, navigation }) => {
-  console.log(' logo widget props: ', navigation);
   return (
     <View style={styles.container}>
       <Image

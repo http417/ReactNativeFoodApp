@@ -41,7 +41,7 @@ const mainItemDetailsReducer = (state = mainsInitialState, action) => {
   }
 };
 
-const lastRefreshDateReducer = (state = '', action) => {
+const lastRefreshDateReducer = (state = 0, action) => {
   switch (action.type) {
     case REFRESH_MENU:
       return Date.now();

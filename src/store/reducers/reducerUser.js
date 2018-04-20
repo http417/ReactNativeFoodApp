@@ -2,60 +2,6 @@
 import { combineReducers } from 'redux';
 import { REFRESH_MENU, PURGE_CART, ADD_ITEM_TO_CART, REMOVE_ITEM_FROM_CART, UPDATE_USER_PHONE, SIGN_OUT, SIGN_IN } from '../../constants/constants';
 
-
-const initialCartState = {
-  items: {
-    // id: quantity
-  },
-  totalCost: 0,
-  totalItems: 0,
-};
-const cartReducer = (state = initialCartState, action) => {
-  switch (action.type) {
-    case PURGE_CART: {
-      return initialCartState;
-    }
-    case ADD_ITEM_TO_CART: {
-      const newCart = { ...state };
-      newCart.items = state.items; // since spread operator doesn't do deep copy
-      // first check to see if item is already in cart, if so then add to its quantity
-      if (action.id in newCart.items) {
-        newCart.items[action.id] += 1;
-      } else {
-        // if items isn't in cart, then add it
-        newCart.items[action.id] = 1;
-      }
-      newCart.totalCost += action.cost;
-      newCart.totalItems += 1;
-      return newCart;
-    }
-    case REMOVE_ITEM_FROM_CART: {
-      const newCart = { ...state };
-      newCart.items = state.items;
-      // first check to see if item is already in cart, if so then add to its quantity
-      if (action.id in newCart.items) {
-        const newQuantity = newCart.items[action.id] - 1;
-        if (newQuantity < 1) {
-          delete newCart.items[action.id];
-        } else {
-          newCart.items[action.id] = newQuantity;
-        }
-      }
-      newCart.totalItems -= 1;
-      newCart.totalCost -= action.cost;
-      return newCart;
-    }
-    case REFRESH_MENU: { // ensure the cart's prices are up to date
-      const newCart = { ...state };
-      newCart.items = state.items;
-      newCart.totalCost = action.totalCartCost;
-      return newCart;
-    }
-    default:
-      return state;
-  }
-};
-
 const phoneReducer = (state = '', action) => {
   switch (action.type) {
     case UPDATE_USER_PHONE:
@@ -76,15 +22,112 @@ const authTokenReducer = (state = '', action) => {
   }
 };
 
+const initialCartState = {
+  items: {
+    // id: quantity
+  },
+  totalCost: 0,
+  totalItems: 0,
+};
+
+const itemsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PURGE_CART: {
+      return {};
+    }
+    case ADD_ITEM_TO_CART: {
+      const updatedItems = { ...state };
+      // first check to see if item is already in cart, if so then add to its quantity
+      if (action.id in updatedItems) {
+        updatedItems[action.id] += 1;
+      } else {
+        // if items isn't in cart, then add it
+        updatedItems[action.id] = 1;
+      }
+      return updatedItems;
+    }
+    case REMOVE_ITEM_FROM_CART: {
+      const updatedItems = { ...state };
+      // first check to see if item is already in cart, if so then subtract its quantity
+      if (action.id in updatedItems) {
+        if (updatedItems[action.id] <= 1) {
+          delete updatedItems[action.id]; // or remove completely
+        } else {
+          updatedItems[action.id] -= 1;
+        }
+      }
+      return updatedItems;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+const totalCostReducer = (state = 0, action) => {
+  switch (action.type) {
+    case PURGE_CART: {
+      return 0;
+    }
+    case ADD_ITEM_TO_CART: {
+      return state + action.cost;
+    }
+    case REMOVE_ITEM_FROM_CART: {
+      return state - action.cost;
+    }
+    case REFRESH_MENU: { // ensure the cart's prices are up to date
+      return action.totalCartCost;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+const totalItemsReducer = (state = 0, action) => {
+  switch (action.type) {
+    case PURGE_CART: {
+      return 0;
+    }
+    case ADD_ITEM_TO_CART: {
+      return state + 1;
+    }
+    case REMOVE_ITEM_FROM_CART: {
+      return state - 1;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+const cartReducer = (state = initialCartState, action) => {
+  switch (action.type) {
+    case PURGE_CART: {
+      return initialCartState;
+    }
+    case ADD_ITEM_TO_CART: {
+      return ({
+        items: itemsReducer(state.items, action),
+        totalCost: totalCostReducer(state.totalCost, action),
+        totalItems: totalItemsReducer(state.totalItems, action),
+      });
+    }
+    case REMOVE_ITEM_FROM_CART: {
+      return ({
+        items: itemsReducer(state.items, action),
+        totalCost: totalCostReducer(state.totalCost, action),
+        totalItems: totalItemsReducer(state.totalItems, action),
+      });
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
 export default combineReducers({
+  cart: cartReducer,
   authToken: authTokenReducer,
   phone: phoneReducer,
-  cart: cartReducer,
 });
-
-/*
-export default (state = {}, action) => ({
-  phone: phone(state.phone, action),
-  cart: cart(state.cart, action),
-});
-*/

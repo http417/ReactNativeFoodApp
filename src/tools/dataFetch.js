@@ -74,6 +74,7 @@ const processData = new Promise((resolve, reject) => {
     });
 });
 
+// not using this function, but it visually shows what the store looks like
 const createMockReduxStoreData = () => ({
   user: {
     authToken: '',
