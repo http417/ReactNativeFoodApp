@@ -16,10 +16,10 @@ import CartWidget from './widgets/CartWidget';
 const MenuStack = StackNavigator({
   CategoryListScreen: {
     screen: ContainerCatListScreen,
-    navigationOptions: {
+    navigationOptions: ({ navigation }) => ({
       title: 'Good Uncle Menu',
-      header: () => (<LogoHeader signedIn />),
-    },
+      header: () => (<LogoHeader signedIn navigation={navigation} />),
+    }),
   },
   CategoryScreen: {
     screen: ContainerCatScreen,

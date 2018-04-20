@@ -66,7 +66,6 @@ const phoneReducer = (state = '', action) => {
 };
 
 const authTokenReducer = (state = '', action) => {
-  console.log('signing out in reducer');
   switch (action.type) {
     case SIGN_IN:
       return action.token;
@@ -82,7 +81,6 @@ export default combineReducers({
   phone: phoneReducer,
   cart: cartReducer,
 });
-
 
 /*
 export default (state = {}, action) => ({

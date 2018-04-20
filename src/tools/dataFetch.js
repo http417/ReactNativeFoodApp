@@ -56,7 +56,6 @@ const processData = new Promise((resolve, reject) => {
     rawCategoryData = rawCategoryData.filter(
       categoryData => (categoryData.id in filteredCategoryContents),
     );
-    
     // build the category item list
     resolve({
       rawCategoryData,

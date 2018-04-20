@@ -15,15 +15,15 @@ export default class extends React.Component {
     const lastRefreshDate = this.props.lastRefreshDate || 0;
     const minutesSinceLastRefresh =
       Math.floor(((Math.abs(Date.now() - lastRefreshDate)) / 1000) / 60);
-    console.log('minutes since last refresh: ', minutesSinceLastRefresh);
-    if (minutesSinceLastRefresh > 0) {
+    // console.log('minutes since last refresh: ', minutesSinceLastRefresh);
+    if (minutesSinceLastRefresh > 10) {
       return true;
     }
     return false;
   }
 
   _refreshStore() {
-    console.log('Updating the redux store');
+    // console.log('Updating the redux store');
     dataManager.processData
       .then((storeData) => {
         this.props.refreshMenu(storeData, this._calcCartCost(storeData));

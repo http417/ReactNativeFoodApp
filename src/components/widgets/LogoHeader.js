@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import CartWidget from './CartWidget';
 
 const styles = StyleSheet.create({
@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 5,
-    paddingLeft:10,
+    paddingLeft: 10,
     backgroundColor: 'black',
     height: 80,
     shadowOpacity: 0.75,
@@ -24,13 +24,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ({ signedIn }) => (
-  <View style={styles.container}>
-    <Image
-      style={styles.headerImage}
-      source={require('./logo2.png')} // eslint-disable-line
-    />
-    { signedIn && <CartWidget darkTheme />}
-  </View>
-);
+export default ({ signedIn, navigation }) => {
+  console.log(' logo widget props: ', navigation);
+  return (
+    <View style={styles.container}>
+      <Image
+        style={styles.headerImage}
+        source={require('./logo2.png')} // eslint-disable-line
+      />
+      {signedIn && <CartWidget darkTheme navigation={navigation} />}
+    </View>
+  );
+};
 
