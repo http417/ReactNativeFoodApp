@@ -1,4 +1,4 @@
-*** ==================     Installation Instructions (using the mobile Expo App)     ================== ****
+*** ==================     Installation Instructions (using the mobile Expo App)     ===================== ****
 
 This application is most easily viewed by running it on an Android or iPhone device with the Expo mobile client app connected to the same wireless network as your computer.
 
@@ -20,13 +20,37 @@ On your Phone:
 4) Aim the phone at the computer's displayed QR code such that it is within the augmented targeting square.
 5) If done properly, hte Expo app should automatically run the ReactNativeFoodApp
 
-*** ==================     Installation Instructions (using the mobile Expo App)       ================== ****
+*** ==================     Installation Instructions (using the mobile Expo App)       =================== ****
 
 In order to run and develop the application on Android Studio or Apple Xcode, you must 'eject' the app.
 
 Detailed instructions are provided here:
  
 https://facebook.github.io/react-native/docs/getting-started.html
+
+
+*** ==================     Assumptions About the Business Requirements     =============================== ****
+
+1.  (Authentication)  I'm assuming that for the purposes of this project, it's ok to create a mock-up of a user authentication and sign-up system.  This app simply stores user phone numbers and (unencrypted) passwords in the devices local storage via React Native's AsyncStorage component.  For a real project, a sophisticated authentication system would be built or a 3rd party tool would be integrated with.  For a phone number username system, a 3rd party provider like Twilio could be useful.
+
+2.  (Authentication) This app allows multiple phone number / password combinations to log in, but in reality, there should only be one account per device.  This app also only has one user shopping cart, which is shared amongst all of the test users.  Obviously that doesn't make much sense.
+
+
+3. (Fresh Data Upkeep) Since the test data (via AWS) is supposedly refreshed every 10 minutes, I built a system that pulled the test data at least once every 10 minutes, but only if the user navigates to a different page.  (Screen changes trigger a check on data refresh timing).
+
+4. (Data Changes).  The test data might change in a way that negatively affects the user's experience.  For example, a user could be viewing an item page that is no longer available after a data refresh (every 10 minutes).  Worse, the items in a user's cart might have changed -- the price might have changed or perhaps the item in the cart is no longer available.  My test app will update the cart after a data fetch, but it will only update pricing data.
+
+4.  (Data Cleansing) There were a lot of category data that didn't have sensible names, so I filtered them out.  In a production application, it might make sense to have a large universe of data since there might be other use cases which requires that data.
+
+5. (Cart Logistics) A lot of typical cart features were ommitted in this test app.  For example, there are no tax calculations, delivery charges.
+
+
+
+*** ==================     Overview of App Structure     ================================================= ****
+
+
+
+
 
 *** ==================      Issues:       ================================================================ ****
 
