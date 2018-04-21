@@ -3,6 +3,7 @@ import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
 import convertToDollars from '../../tools/priceConversion';
 import RefreshMenuWidget from '../containers/containerRefreshMenuWidget';
 import CartWidget from '../widgets/CartWidget';
+import CartTitleWidget from '../widgets/CartTitleWidget';
 
 const styles = StyleSheet.create({
   itemTitle: {
@@ -37,20 +38,22 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
   },
+  emptyContainer: {
+    flex: .5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyContainerText: {
+    fontSize: 16,
+    marginBottom: 20,
+  },
 });
 
 class CartScreen extends React.Component {
-  static navigationOptions = ({ navigation }) => {
-    const { params } = navigation.state;
-    if (!params) {
-      return {
-        title: 'Your Cart',
-      };
-    }
-    return {
-      title: `Total Items In Cart: ${params.totalItems}`,
-    };
-  }
+  static navigationOptions = ({ navigation }) => ({
+    header: <CartTitleWidget />,
+  });
+
   constructor(props) {
     super(props);
     [this.totalItems, this.totalCost] =
@@ -61,7 +64,9 @@ class CartScreen extends React.Component {
     if (prevProps.cartLastUpdated !== this.props.cartLastUpdated) {
       [this.totalItems, this.totalCost] =
         CartWidget.calculateCartQuantityCost(this.props.cart, this.props.mainItemDetails);
+      this.props.navigation.state.params.totalItems = this.totalItems;
       this.forceUpdate();
+      console.log('new navigation state: ', this.props.navigation.state);
     }
   }
 
@@ -87,8 +92,20 @@ class CartScreen extends React.Component {
     );
   };
 
+  _goToMenu = () => {
+    this.props.navigation.navigate('CategoryListScreen');
+  }
+
   render() {
-    return (
+    const emptyCart = (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.emptyContainerText}>Your cart is empty.  How about your stomach?</Text>
+        <View style={styles.itemRemove}>
+          <Button title="Continue Shopping" onPress={this._goToMenu} />
+        </View>
+      </View>
+    );
+    const filledCart = (
       <View>
         <RefreshMenuWidget cartLastUpdated={this.props.cartLastUpdated} />
         <FlatList
@@ -105,10 +122,11 @@ class CartScreen extends React.Component {
           Total Cost: ${convertToDollars(this.totalCost)}
         </Text>
         <View style={styles.signButton}>
-          <Button title="Check Out" disabled />
+          <Button title="Check Out" disabled onPress={() => console.log('disabled Checkout')} />
         </View>
       </View>
     );
+    return !this.totalItems ? emptyCart : filledCart;
   }
 }
 
