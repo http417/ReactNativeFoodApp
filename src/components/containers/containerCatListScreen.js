@@ -3,12 +3,12 @@ import actions from '../../store/actions';
 import CatListScreen from '../screens/CatListScreen';
 import dataManager from '../../tools/dataFetch';
 
-const mapStateToProps = (state) => {
-  return ({
-    lastRefreshDate: state.foodStore.lastRefreshDate,
-    foodStore: state.foodStore,
-  });
-};
+const mapStateToProps = state => ({
+  lastRefreshDate: state.foodStore.lastRefreshDate,
+  foodStore: state.foodStore,
+  cartLastUpdated: state.user.cartLastUpdated,
+});
+
 
 const mapDispatchToProps = dispatch => ({
   refreshMenu: () => {

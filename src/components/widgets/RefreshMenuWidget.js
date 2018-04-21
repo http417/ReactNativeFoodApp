@@ -22,13 +22,14 @@ export default class extends React.Component {
     return false;
   }
 
+
   _refreshStore() {
     // console.log('Updating the redux store');
     dataManager.processData
       .then((storeData) => {
-        if (storeData.mainItemDetails.keys().length && storeData.rawCategoryData.keys().length) {
-          this.props.refreshMenu(storeData, this._calcCartCost(storeData));
-          console.log('Store Date was refreshed on ', new Date());
+        if (Object.keys(storeData.mainItems).length &&
+          Object.keys(storeData.rawCategoryData).length) {
+          this.props.refreshMenu(storeData);
         } else {
           throw new Error('Server returned missing data, so using old data');
         }
@@ -38,17 +39,18 @@ export default class extends React.Component {
       });
   }
 
-  _calcCartCost(newStoreData) {
-    const { items } = this.props.cart;
-    const { mainItemDetails } = newStoreData;
-    let totalCost = 0;
-    Object.entries(items).forEach(
-      ([itemId, itemQuantity]) => {
-        const itemPrice = mainItemDetails[itemId].price;
-        totalCost += (itemPrice * itemQuantity);
-      },
-    );
-    return totalCost;
+  // if any items are no longer available (after a refresh), remove them from the cart
+  _removeDiscontinuedItems(newStoreData) {
+    const { cart } = this.props; // { {itemID: quantity}, }
+    const idsToRemove = []; // store id's of items that should be deleted after processing the data
+    Object.keys(cart).forEach((itemId) => {
+      if (!(itemId in newStoreData.mainItemDetails)) {
+        idsToRemove.push(itemId);
+      }
+    });
+    idsToRemove.forEach((itemId) => {
+      this.props.removeDiscontinuedCartItem(itemId, cart[itemId].quantity);
+    });
   }
 
   render() {

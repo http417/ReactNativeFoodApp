@@ -41,6 +41,34 @@ const styles = StyleSheet.create({
 });
 
 class CartWidget extends React.Component {
+  // statically declare this function so that the cart screen can use it's logic
+  static calculateCartQuantityCost = (cart, mainItemDetails) => {
+    let totalItems = 0;
+    let totalCost = 0;
+    Object.entries(cart).forEach(
+      ([itemId, quantity]) => {
+        totalItems += quantity;
+        totalCost += (mainItemDetails[itemId].price * quantity);
+      },
+    );
+    return [totalItems, totalCost];
+  }
+
+  constructor(props) {
+    super(props);
+    [this.totalItems, this.totalCost] =
+      CartWidget.calculateCartQuantityCost(this.props.cart, this.props.mainItemDetails);
+  }
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.cartLastUpdated !== this.props.cartLastUpdated) {
+      [this.totalItems, this.totalCost] =
+        CartWidget.calculateCartQuantityCost(this.props.cart, this.props.mainItemDetails);
+      this.forceUpdate();
+      // have to call this otherwise cart won't re-render since no props have changed
+    }
+  }
+
   _goToCart = () => {
     this.props.navigation.navigate('CartScreen');
   };
@@ -56,7 +84,9 @@ class CartWidget extends React.Component {
           <RefreshMenuWidget />
           <Ionicons name="ios-cart" size={18} />
           <Text style={(darkTheme) ? styles.darkText : styles.text}>
-            Cart ({this.props.cartTotalItems}) ${priceConversion(this.props.cartTotalCost)}
+            {this.totalCost ?
+              `Cart (${this.totalItems}) $${priceConversion(this.totalCost)}` :
+              `Cart (${this.totalItems}) `}
           </Text>
         </View>
       </TouchableHighlight>
@@ -65,8 +95,9 @@ class CartWidget extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  cartTotalItems: state.user.cart.totalItems,
-  cartTotalCost: state.user.cart.totalCost,
+  cart: state.user.cart,
+  mainItemDetails: state.foodStore.mainItemDetails,
+  cartLastUpdated: state.user.cartLastUpdated,
 });
 
 export default connect(mapStateToProps, null)(CartWidget);

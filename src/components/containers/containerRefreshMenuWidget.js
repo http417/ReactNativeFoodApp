@@ -11,6 +11,9 @@ const mapDispatchToProps = dispatch => ({
   refreshMenu: (menuData, cartData) => {
     dispatch(actions.refreshMenu(menuData, cartData));
   },
+  removeDiscontinuedCartItem: (itemId, quantity) => {
+    dispatch(actions.removeItemFromCart(itemId, quantity));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RefreshMenuWidget);

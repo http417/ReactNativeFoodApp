@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
 import convertToDollars from '../../tools/priceConversion';
 import RefreshMenuWidget from '../containers/containerRefreshMenuWidget';
+import CartWidget from '../widgets/CartWidget';
 
 const styles = StyleSheet.create({
   totalCountText: {
@@ -24,14 +25,22 @@ const styles = StyleSheet.create({
 });
 
 class CartScreen extends React.Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: 'Your Cart',
-    };
-  };
+  constructor(props) {
+    super(props);
+    [this.totalItems, this.totalCost] =
+      CartWidget.calculateCartQuantityCost(this.props.cart, this.props.mainItemDetails);
+  }
 
-  removeItem = (id, cost) => {
-    this.props.onRemoveClick(id, cost);
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.cartLastUpdated !== this.props.cartLastUpdated) {
+      [this.totalItems, this.totalCost] =
+        CartWidget.calculateCartQuantityCost(this.props.cart, this.props.mainItemDetails);
+      this.forceUpdate();
+    }
+  }
+
+  removeItem = (id) => {
+    this.props.onRemoveClick(id);
   }
 
   displayLineItem = (itemId, itemInfo, itemQuantity) => {
@@ -44,7 +53,7 @@ class CartScreen extends React.Component {
           <Text>Price: ${convertToDollars(itemInfo.price)} x {itemQuantity} = ${subTotal}</Text>
         </View>
         <View>
-          <Button title="Remove Item" onPress={() => this.removeItem(itemId, itemInfo.price)} />
+          <Button title="Remove Item" onPress={() => this.removeItem(itemId)} />
         </View>
       </View>
     );
@@ -53,26 +62,26 @@ class CartScreen extends React.Component {
   render() {
     return (
       <View>
-        <RefreshMenuWidget />
+        <RefreshMenuWidget cartLastUpdated={this.props.cartLastUpdated} />
         <Text style={styles.totalCountText}>
-          Total Items In Your Cart: {this.props.cart.totalItems}
+          Total Items In Your Cart: {this.totalItems}
         </Text>
         <FlatList
-          data={Object.entries(this.props.cart.items)}
+          data={Object.entries(this.props.cart)}
           renderItem={
             ({ item }) => {
-              const [itemId, itemQuantity] = item;
+              const [itemId, quantity] = item;
               const itemInfo = this.props.mainItemDetails[itemId];
               return (
                 <View>
-                  {this.displayLineItem(itemId, itemInfo, itemQuantity)}
+                  {this.displayLineItem(itemId, itemInfo, quantity)}
                 </View>
               );
             }
           }
         />
         <Text style={styles.totalCostText}>
-          Total Cost: ${convertToDollars(this.props.cart.totalCost)}
+          Total Cost: ${convertToDollars(this.totalCost)}
         </Text>
       </View>
     );
@@ -80,4 +89,3 @@ class CartScreen extends React.Component {
 }
 
 export default CartScreen;
-

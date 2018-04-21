@@ -1,11 +1,10 @@
-import { PURGE_CART, REFRESH_MENU, ADD_ITEM_TO_CART, REMOVE_ITEM_FROM_CART, UPDATE_USER_PHONE, SIGN_OUT, SIGN_IN } from '../constants/constants';
+import { PURGE_CART, REFRESH_MENU, ADD_ITEM_TO_CART, REMOVE_ITEM_FROM_CART, SIGN_OUT, SIGN_IN, UPDATE_USER_PHONE } from '../constants/constants';
 
-const refreshMenu = (menuData, totalCartCost) => ({
+const refreshMenu = menuData => ({
   type: REFRESH_MENU,
   rawCategoryData: menuData.rawCategoryData,
   mainItemDetails: menuData.mainItemDetails,
   categoryContents: menuData.categoryContents,
-  totalCartCost,
 });
 
 const purgeCart = () => ({
@@ -17,16 +16,16 @@ const updateUserPhone = number => ({
   number,
 });
 
-const addItemToCart = (id, cost) => ({
+const addItemToCart = (id, quantity = 1) => ({
   type: ADD_ITEM_TO_CART,
   id,
-  cost,
+  quantity,
 });
 
-const removeItemFromCart = (id, cost) => ({
+const removeItemFromCart = (id, quantity = -1) => ({
   type: REMOVE_ITEM_FROM_CART,
   id,
-  cost,
+  quantity,
 });
 
 const signOut = () => ({

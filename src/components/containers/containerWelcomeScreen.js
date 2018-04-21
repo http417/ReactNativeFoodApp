@@ -8,9 +8,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  refreshMenu: (menuData, cartData) => {
-    dispatch(actions.refreshMenu(menuData, cartData));
-  },
   purgeCart: () => {
     dispatch(actions.purgeCart());
   },

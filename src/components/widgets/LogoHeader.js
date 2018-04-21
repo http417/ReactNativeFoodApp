@@ -24,15 +24,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ({ signedIn, navigation }) => {
-  return (
-    <View style={styles.container}>
-      <Image
-        style={styles.headerImage}
-        source={require('./logo2.png')} // eslint-disable-line
-      />
-      {signedIn && <CartWidget darkTheme navigation={navigation} />}
-    </View>
-  );
-};
+export default ({ signedIn, navigation }) => (
+  <View style={styles.container}>
+    <Image
+      style={styles.headerImage}
+      source={require('./logo2.png')} // eslint-disable-line
+    />
+    {signedIn && <CartWidget darkTheme navigation={navigation} />}
+  </View>
+);
 

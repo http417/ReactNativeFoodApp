@@ -26,7 +26,6 @@ class ItemScreen extends React.Component {
     title: 'Entree',
   });
 
-
   constructor(props) {
     super(props);
     const { params } = this.props.navigation.state;
@@ -35,27 +34,25 @@ class ItemScreen extends React.Component {
   }
 
   addItem = () => {
-    this.props.onAddClick(this.itemId, this.mainItemDetails[this.itemId].price);
+    this.props.onAddClick(this.itemId);
     this.props.navigation.goBack();
   }
 
-  render = () => {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>{this.props.navigation.state.params.name}</Text>
-        <Text style={styles.label}>Description:</Text>
-        <Text style={{ marginTop: 5, marginBottom: 10 }}>
-          {this.mainItemDetails[this.itemId].description}
-        </Text>
-        <Text style={styles.label}>
-          Price: {convertToDollars(this.mainItemDetails[this.itemId].price)}
-        </Text>
-        <View style={styles.buttonLine}>
-          <Button title="Add To Cart" onPress={this.addItem} />
-        </View>
+  render = () => (
+    <View style={styles.container}>
+      <Text style={styles.title}>{this.props.navigation.state.params.name}</Text>
+      <Text style={styles.label}>Description:</Text>
+      <Text style={{ marginTop: 5, marginBottom: 10 }}>
+        {this.mainItemDetails[this.itemId].description}
+      </Text>
+      <Text style={styles.label}>
+        Price: {convertToDollars(this.mainItemDetails[this.itemId].price)}
+      </Text>
+      <View style={styles.buttonLine}>
+        <Button title="Add To Cart" onPress={this.addItem} />
       </View>
-    );
-  }
+    </View>
+  );
 }
 
 export default ItemScreen;

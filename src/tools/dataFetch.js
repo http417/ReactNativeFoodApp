@@ -2,16 +2,6 @@ const URL = "https://s3.amazonaws.com/staginggooduncledigests/products_istcki0x0
 
 // need to fetch the data from good uncle's aws server
 
-/*
-steps:
-1. extract out categories into a map where key is category id and value is category name
-2. extract out the mains into a map where  key is id and value is another map with category id, name, name abbreviated, price, and description
-  - price is found as mains.productOptions.0.price in cents
-3. create the processed map: { categoryID: [mainID1, mainID2, ...]}
-4. optionally clear out any categories from categories map if it's not in use
-5. store the 3 maps into the redux store
-*/
-
 const processData = new Promise((resolve, reject) => {
   const validateResponse = (response) => {
     if (!response.ok) {
@@ -79,13 +69,9 @@ const createMockReduxStoreData = () => ({
   user: {
     authToken: '',
     phone: '',
+    cartLastUpdated: '', // used to trigger updates to the cart widget
     cart: {
-      items: {
-        // id: quantity
-        1: 2,
-      },
-      totalCost: 0,
-      totalItems: 0,
+      1: 3, // itemId: quantity
     },
   },
   foodStore: {

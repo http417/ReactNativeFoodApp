@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
   },
 });
 
-
 class CatScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state;
