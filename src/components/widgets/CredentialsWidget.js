@@ -37,6 +37,7 @@ class CredentialsWidget extends React.Component {
       number: '',
       password: '',
       submitReady: false,
+      submitInProcess: false, // for disabling submit button after initial press
     };
   }
 
@@ -69,6 +70,7 @@ class CredentialsWidget extends React.Component {
   }
 
   _onSubmit = () => {
+    this.setState({ submitInProcess: true });
     if (this.props.isSigningUp) {
       // do additioanal check to see if password is valid input
       if (!validation.isPasswordValid(this.state.password)) {
@@ -78,6 +80,7 @@ class CredentialsWidget extends React.Component {
       }
     }
     this.props.onSubmit(this.state.number, this.state.password);
+    this.setState({ submitInProcess: false });
   }
 
   render() {
@@ -91,7 +94,7 @@ class CredentialsWidget extends React.Component {
         />
         <Button
           title={this.props.isSigningUp ? "Sign Up" : "Sign In"}
-          disabled={!this.state.submitReady}
+          disabled={!this.state.submitReady || this.state.submitInProcess}
           onPress={this._onSubmit}
         />
       </View>

@@ -50,12 +50,15 @@ const styles = StyleSheet.create({
 });
 
 class CartScreen extends React.Component {
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = () => ({
     header: <CartTitleWidget />,
   });
 
   constructor(props) {
     super(props);
+    this.state = {
+      removingInProcess: false, // for disabling remove buttons after initially clicked
+    };
     [this.totalItems, this.totalCost] =
       CartWidget.calculateCartQuantityCost(this.props.cart, this.props.mainItemDetails);
   }
@@ -66,12 +69,13 @@ class CartScreen extends React.Component {
         CartWidget.calculateCartQuantityCost(this.props.cart, this.props.mainItemDetails);
       this.props.navigation.state.params.totalItems = this.totalItems;
       this.forceUpdate();
-      console.log('new navigation state: ', this.props.navigation.state);
     }
   }
 
   removeItem = (id) => {
+    this.setState({ removingInProcess: true });
     this.props.onRemoveClick(id);
+    this.setState({ removingInProcess: false });
   }
 
   displayLineItem = (itemId, itemInfo, itemQuantity) => {
@@ -85,7 +89,7 @@ class CartScreen extends React.Component {
             <Text>Price: ${convertToDollars(itemInfo.price)} x {itemQuantity} = ${subTotal}</Text>
           </View>
           <View style={styles.itemRemove}>
-            <Button title="Remove Item" onPress={() => this.removeItem(itemId)} />
+            <Button disabled={this.state.removingInProcess} title="Remove Item" onPress={() => this.removeItem(itemId)} />
           </View>
         </View>
       </View>

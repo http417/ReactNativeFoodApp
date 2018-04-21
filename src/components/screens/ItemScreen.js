@@ -31,9 +31,13 @@ class ItemScreen extends React.Component {
     const { params } = this.props.navigation.state;
     this.mainItemDetails = this.props.mainItemDetails;
     this.itemId = params ? params.id : 0;
+    this.state = {
+      addingInProcess: false,
+    };
   }
 
   addItem = () => {
+    this.setState({ addingInProcess: true });
     this.props.onAddClick(this.itemId);
     this.props.navigation.goBack();
   }
@@ -49,7 +53,7 @@ class ItemScreen extends React.Component {
         Price: {convertToDollars(this.mainItemDetails[this.itemId].price)}
       </Text>
       <View style={styles.buttonLine}>
-        <Button title="Add To Cart" onPress={this.addItem} />
+        <Button disabled={this.state.addingInProcess} title="Add To Cart" onPress={this.addItem} />
       </View>
     </View>
   );
