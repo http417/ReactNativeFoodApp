@@ -8,9 +8,9 @@ import ContainerCartScreen from './containers/containerCartScreen';
 import ContainerItemScreen from './containers/containerItemScreen';
 import ContainerSignInScreen from './containers/containerSignInScreen';
 import ContainerSignUpScreen from './containers/containerSignUpScreen';
-import AccountScreen from './screens/AccountScreen';
+import AccountScreen from './containers/containerAccountScreen';
 import ContainerAuthLoadingScreen from './containers/containerAuthLoadingScreen';
-import ContainerWelcomeScreen from './containers/containerWelcomeScreen';
+import WelcomeScreen from './screens/WelcomeScreen';
 import CartWidget from './widgets/CartWidget';
 
 const MenuStack = StackNavigator({
@@ -46,9 +46,10 @@ const MenuStack = StackNavigator({
 const AccountStack = StackNavigator({
   Account: {
     screen: AccountScreen,
-    navigationOptions: {
+    navigationOptions: ({ navigation }) => ({
       title: 'Account Settings',
-    },
+      headerRight: <CartWidget navigation={navigation} />,
+    }),
   },
 });
 
@@ -101,7 +102,7 @@ const AppStack = StackNavigator({
 
 
 const AuthStack = StackNavigator({
-  Welcome: ContainerWelcomeScreen,
+  Welcome: WelcomeScreen,
   SignIn: ContainerSignInScreen,
   SignUp: ContainerSignUpScreen,
 }, {
