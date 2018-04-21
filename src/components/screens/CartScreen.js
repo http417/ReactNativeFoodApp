@@ -75,6 +75,7 @@ class CartScreen extends React.Component {
     if (prevProps.cartLastUpdated !== this.props.cartLastUpdated) {
       [this.totalItems, this.totalCost] =
         CartWidget.calculateCartQuantityCost(this.props.cart, this.props.mainItemDetails);
+      setInterval(() => this.setState({ removingInProcess: false }), 1000);
       this.props.navigation.state.params.totalItems = this.totalItems;
       this.forceUpdate();
     }
@@ -83,11 +84,10 @@ class CartScreen extends React.Component {
   removeItem = (id) => {
     this.setState({ removingInProcess: true });
     this.props.onRemoveClick(id);
-    this.setState({ removingInProcess: false });
   }
 
   displayLineItem = (itemId, itemInfo, itemQuantity) => {
-    const subTotal = parseFloat(convertToDollars(itemInfo.price)) * itemQuantity;
+    const subTotal = convertToDollars(itemInfo.price * itemQuantity);
     return (
       <View style={styles.flatList}>
         <Text style={styles.itemTitle}>{itemInfo.name}</Text>
@@ -97,11 +97,11 @@ class CartScreen extends React.Component {
             <Text>Price: ${convertToDollars(itemInfo.price)} x {itemQuantity} = ${subTotal}</Text>
           </View>
           <TouchableHighlight
-            onPress={() => this.removeItem(itemId)}
+            onPress={() => { if (!this.state.removingInProcess) this.removeItem(itemId); }}
             disabled={this.state.removingInProcess}
           >
             <Text style={styles.itemRemove}>
-              Remove Item
+              { !this.state.removingInProcess ? `Remove Item` : `Processing...`}
             </Text>
           </TouchableHighlight>
         </View>
@@ -129,7 +129,7 @@ class CartScreen extends React.Component {
     const emptyCart = (
       <View style={styles.emptyContainer}>
         <Text style={styles.emptyContainerText}>Your cart is empty.  How about your stomach?</Text>
-        <View style={styles.itemRemove}>
+        <View>
           <Button title="Continue Shopping" onPress={this._goToMenu} />
         </View>
       </View>

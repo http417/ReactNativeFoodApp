@@ -39,12 +39,6 @@ class ItemScreen extends React.Component {
   addItem = () => {
     this.setState({ addingInProcess: true });
     this.props.onAddClick(this.itemId);
-    Alert.alert('Item Added To Cart', 'What would you like to do now?',
-      [
-        { text: 'Continue Shopping', onPress: () => this.props.navigation.goBack() },
-        { text: 'Checkout', onPress: () => this.props.navigation.navigate('CartScreen') },
-      ],
-    );
     this.props.navigation.goBack();
   }
 

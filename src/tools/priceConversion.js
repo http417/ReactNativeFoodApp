@@ -1,7 +1,3 @@
-const convertToDollars = (price) => {
-  const dollars = price / 100;
-  dollars.toLocaleString("en-US", { style: "currency", currency: "USD" });
-  return dollars;
-};
+const convertToDollars = price => (price / 100).toFixed(2);
 
 export default convertToDollars;
