@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, Alert } from 'react-native';
 import convertToDollars from '../../tools/priceConversion';
 
 const styles = StyleSheet.create({
@@ -39,6 +39,12 @@ class ItemScreen extends React.Component {
   addItem = () => {
     this.setState({ addingInProcess: true });
     this.props.onAddClick(this.itemId);
+    Alert.alert('Item Added To Cart', 'What would you like to do now?',
+      [
+        { text: 'Continue Shopping', onPress: () => this.props.navigation.goBack() },
+        { text: 'Checkout', onPress: () => this.props.navigation.navigate('CartScreen') },
+      ],
+    );
     this.props.navigation.goBack();
   }
 

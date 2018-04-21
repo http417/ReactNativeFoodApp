@@ -120,7 +120,7 @@ class CartScreen extends React.Component {
       this.state.checkoutAttempts ? `Boy, you don't give up easily, do you?` : `Try McDonalds`,
       [
         { text: 'Continue Shopping', onPress: this._goToMenu },
-        { text: 'OK', onPress: () => { this.setState({ checkoutInProgress: false }); } },
+        !this.state.checkoutAttempts && { text: 'OK', onPress: () => { this.setState({ checkoutInProgress: false }); } },
       ],
     );
   }
