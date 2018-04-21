@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
+import { View, Text, Button, FlatList, StyleSheet, Alert, TouchableHighlight } from 'react-native';
 import convertToDollars from '../../tools/priceConversion';
 import RefreshMenuWidget from '../containers/containerRefreshMenuWidget';
 import CartWidget from '../widgets/CartWidget';
@@ -11,17 +11,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+  footer: {
+    paddingBottom: 15,
+  },
   totalCostText: {
-    borderTopWidth: 0.5,
+    borderTopWidth: 0.4,
     borderColor: 'darkslategrey',
-    padding: 15,
+    padding: 7,
     paddingLeft: 0,
-    paddingTop: 25,
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginTop: 10,
-    marginBottom: 10,
   },
   checkoutButton: {
     width: 300,
@@ -39,13 +39,19 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   emptyContainer: {
-    flex: .5,
+    flex: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
   },
   emptyContainerText: {
     fontSize: 16,
     marginBottom: 20,
+  },
+  itemRemove: {
+    borderWidth: 0.2,
+    borderRadius: 3,
+    padding: 8,
+    borderColor: 'darkslategrey',
   },
 });
 
@@ -58,6 +64,8 @@ class CartScreen extends React.Component {
     super(props);
     this.state = {
       removingInProcess: false, // for disabling remove buttons after initially clicked
+      checkoutInProgress: false,
+      checkoutAttempts: 0,
     };
     [this.totalItems, this.totalCost] =
       CartWidget.calculateCartQuantityCost(this.props.cart, this.props.mainItemDetails);
@@ -88,9 +96,14 @@ class CartScreen extends React.Component {
             <Text>Quantity: {itemQuantity}</Text>
             <Text>Price: ${convertToDollars(itemInfo.price)} x {itemQuantity} = ${subTotal}</Text>
           </View>
-          <View style={styles.itemRemove}>
-            <Button disabled={this.state.removingInProcess} title="Remove Item" onPress={() => this.removeItem(itemId)} />
-          </View>
+          <TouchableHighlight
+            onPress={() => this.removeItem(itemId)}
+            disabled={this.state.removingInProcess}
+          >
+            <Text style={styles.itemRemove}>
+              Remove Item
+            </Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -98,6 +111,18 @@ class CartScreen extends React.Component {
 
   _goToMenu = () => {
     this.props.navigation.navigate('CategoryListScreen');
+  }
+
+  _checkout = () => {
+    this.setState(prevState =>
+      ({ checkoutInProgress: true, checkoutAttempts: prevState.checkoutAttempts + 1 }));
+    Alert.alert('Sorry, our store is currently closed.',
+      this.state.checkoutAttempts ? `Boy, you don't give up easily, do you?` : `Try McDonalds`,
+      [
+        { text: 'Continue Shopping', onPress: this._goToMenu },
+        { text: 'OK', onPress: () => { this.setState({ checkoutInProgress: false }); } },
+      ],
+    );
   }
 
   render() {
@@ -110,7 +135,7 @@ class CartScreen extends React.Component {
       </View>
     );
     const filledCart = (
-      <View>
+      <View style={{ flex: 1 }}>
         <RefreshMenuWidget cartLastUpdated={this.props.cartLastUpdated} />
         <FlatList
           data={Object.entries(this.props.cart)}
@@ -122,11 +147,13 @@ class CartScreen extends React.Component {
             }
           }
         />
-        <Text style={styles.totalCostText}>
-          Total Cost: ${convertToDollars(this.totalCost)}
-        </Text>
-        <View style={styles.signButton}>
-          <Button title="Check Out" disabled onPress={() => console.log('disabled Checkout')} />
+        <View style={styles.footer}>
+          <Text style={styles.totalCostText}>
+            Total Cost: ${convertToDollars(this.totalCost)}
+          </Text>
+          <View style={styles.signButton}>
+            <Button disabled={this.state.checkoutInProgress} title="Check Out" onPress={this._checkout} />
+          </View>
         </View>
       </View>
     );
