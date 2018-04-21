@@ -29,9 +29,6 @@ const MenuStack = StackNavigator({
   },
   CartScreen: {
     screen: ContainerCartScreen,
-    navigationOptions: {
-      title: 'Your Cart',
-    },
   },
 }, {
   initialRouteName: 'CategoryListScreen',

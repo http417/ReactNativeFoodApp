@@ -70,7 +70,7 @@ class CartWidget extends React.Component {
   }
 
   _goToCart = () => {
-    this.props.navigation.navigate('CartScreen');
+    this.props.navigation.navigate('CartScreen', { totalItems: this.totalItems });
   };
 
   render = () => {
