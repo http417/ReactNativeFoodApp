@@ -3,10 +3,10 @@ import { REFRESH_MENU, UPDATE_REFRESH_TRACKING, PURGE_MENU } from '../../constan
 
 
 // { 0: {name: 'Meats', id: 'sdsadg' }, }
-const rawCategoryDataReducer = (state = {}, action) => {
+const categoryDetailsReducer = (state = {}, action) => {
   switch (action.type) {
     case REFRESH_MENU:
-      return action.rawCategoryData;
+      return action.categoryDetails;
     case PURGE_MENU:
       return {};
     default:
@@ -16,17 +16,16 @@ const rawCategoryDataReducer = (state = {}, action) => {
 
 
 // { 23523525: [6312361236,2136236,236123612], }
-const categoryContentsReducer = (state = {}, action) => {
+const categoryToMainsHashReducer = (state = {}, action) => {
   switch (action.type) {
     case REFRESH_MENU:
-      return action.categoryContents;
+      return action.categoryToMainsHash;
     case PURGE_MENU:
       return {};
     default:
       return state;
   }
 };
-
 
   // { 23523525:
   // {name: 'Chicken Fingers', price: 1299, description: 'battered diabetes sauted with diahrea' },
@@ -61,8 +60,8 @@ const refreshTrackingReducer = (state = initialRefreshTrackingState, action) => 
 };
 
 export default combineReducers({
-  categoryContents: categoryContentsReducer,
+  categoryToMainsHash: categoryToMainsHashReducer,
   mainItemDetails: mainItemDetailsReducer,
-  rawCategoryData: rawCategoryDataReducer,
+  categoryDetails: categoryDetailsReducer,
   refreshTracking: refreshTrackingReducer,
 });

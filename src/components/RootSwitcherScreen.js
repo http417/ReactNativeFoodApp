@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ActivityIndicator, StatusBar, View } from 'react-native';
-import RefreshMenuWidget from './widgets/RefreshMenuWidget';
+import AutoRefreshServerDataWidget from './widgets/AutoRefreshServerDataWidget';
 
 const RootSwitcherScreen = ({ navigation, authToken }) => {
   // for now, token is valid simply if it exists
@@ -17,7 +17,7 @@ const RootSwitcherScreen = ({ navigation, authToken }) => {
       justifyContent: 'center',
     }}
     >
-      <RefreshMenuWidget />
+      <AutoRefreshServerDataWidget />
       <ActivityIndicator />
       <StatusBar barStyle="default" />
     </View>

@@ -1,10 +1,10 @@
 import { PURGE_CART, PURGE_MENU, REFRESH_MENU, UPDATE_REFRESH_TRACKING, ADD_ITEM_TO_CART, REMOVE_ITEM_FROM_CART, CLEAR_AUTH_TOKEN, STORE_AUTH_TOKEN, UPDATE_USER_PHONE } from '../constants/constants';
 
-const refreshMenu = menuData => ({
+const refreshMenu = newMenuData => ({
   type: REFRESH_MENU,
-  rawCategoryData: menuData.rawCategoryData,
-  mainItemDetails: menuData.mainItemDetails,
-  categoryContents: menuData.categoryContents,
+  categoryDetails: newMenuData.categoryDetails,
+  mainItemDetails: newMenuData.mainItemDetails,
+  categoryToMainsHash: newMenuData.categoryToMainsHash,
 });
 
 const updateRefreshingTracking = isInProgress => ({

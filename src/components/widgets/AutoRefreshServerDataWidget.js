@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import actions from '../../store/actions';
-import dataManager from '../../tools/dataFetch';
+import fetchAndProcessServerData from '../../tools/fetchAndProcessServerData';
 
 // invisible widget that automatically refreshes menu every 10 minutes
 // place this all across the site e.g. cart widget, cart page, landing page,etc.
@@ -33,13 +33,13 @@ class RefreshServerDataWidget extends React.Component {
 
   _isNewStoreDataValid = newStoreData => (
     // greedy check, just make sure that there is data
-    Object.keys(newStoreData.mainItems).length &&
-          Object.keys(newStoreData.rawCategoryData).length
+    Object.keys(newStoreData.mainItemDetails).length &&
+          Object.keys(newStoreData.categoryDetails).length
   )
 
   _refreshStore = () => {
     this.props.updateRefreshTracking(true);
-    dataManager.processData
+    fetchAndProcessServerData
       .then((newStoreData) => {
         if (this._isNewStoreDataValid) {
           this._removeAnyDiscontinuedItems(newStoreData);
@@ -83,7 +83,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updateRefreshTracking: isInProgress =>
     dispatch(actions.updateRefreshingTracking(isInProgress)),
-  refreshMenu: (menuData, cartData) => dispatch(actions.refreshMenu(menuData, cartData)),
+  refreshMenu: newMenuData => dispatch(actions.refreshMenu(newMenuData)),
   removeDiscontinuedCartItem: (itemId, quantity) => {
     dispatch(actions.removeItemFromCart(itemId, quantity));
   },

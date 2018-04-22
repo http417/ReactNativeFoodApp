@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Button, Text } from 'react-native';
-import RefreshMenuWidget from './widgets/RefreshMenuWidget';
+import AutoRefreshServerDataWidget from './widgets/AutoRefreshServerDataWidget';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 
 export default ({ navigation }) => (
   <View style={styles.container}>
-    <RefreshMenuWidget />
+    <AutoRefreshServerDataWidget />
     <Text style={styles.title}>
       Hungry?
     </Text>
@@ -37,7 +37,7 @@ export default ({ navigation }) => (
         <Button title="Sign Up" onPress={() => navigation.navigate('SignUpScreen')} />
       </View>
       <View style={styles.signButton}>
-        <Button title="Sign In" onPress={() => navigation.navigate('SignInScreen')} />
+        <Button title="Sign In" onPress={() => navigation.navigate('AppStack')} />
       </View>
     </View>
   </View>
