@@ -75,7 +75,7 @@ const createMockReduxStoreData = () => ({
     },
   },
   foodStore: {
-    lastRefreshDate: '',
+    refreshTracking: { lastRefreshDate: '', refreshInProgress: false },
     rawCategoryData: {
       0: {
         id: 101,

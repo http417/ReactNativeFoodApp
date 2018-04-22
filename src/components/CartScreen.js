@@ -57,7 +57,6 @@ class CartScreen extends React.Component {
         CartWidget.calculateCartQuantityCost(this.props.cart, this.props.mainItemDetails);
       setInterval(() => this.setState({ removingInProcess: false }), 1000);
       this.props.navigation.state.params.totalItems = this.totalItems;
-      this.forceUpdate();
     }
   }
 

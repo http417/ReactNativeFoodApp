@@ -64,8 +64,7 @@ class CartWidget extends React.Component {
     if (prevProps.cartLastUpdated !== this.props.cartLastUpdated) {
       [this.totalItems, this.totalCost] =
         CartWidget.calculateCartQuantityCost(this.props.cart, this.props.mainItemDetails);
-      this.forceUpdate();
-      // have to call this otherwise cart won't re-render since no props have changed
+      this.forceUpdate(); // force the widget to re render when it appears next
     }
   }
 

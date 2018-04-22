@@ -1,4 +1,4 @@
-import { PURGE_CART, REFRESH_MENU, ADD_ITEM_TO_CART, REMOVE_ITEM_FROM_CART, CLEAR_AUTH_TOKEN, STORE_AUTH_TOKEN, UPDATE_USER_PHONE } from '../constants/constants';
+import { PURGE_CART, PURGE_MENU, REFRESH_MENU, UPDATE_REFRESH_TRACKING, ADD_ITEM_TO_CART, REMOVE_ITEM_FROM_CART, CLEAR_AUTH_TOKEN, STORE_AUTH_TOKEN, UPDATE_USER_PHONE } from '../constants/constants';
 
 const refreshMenu = menuData => ({
   type: REFRESH_MENU,
@@ -7,8 +7,17 @@ const refreshMenu = menuData => ({
   categoryContents: menuData.categoryContents,
 });
 
+const updateRefreshingTracking = isInProgress => ({
+  type: UPDATE_REFRESH_TRACKING,
+  isInProgress,
+});
+
 const purgeCart = () => ({
   type: PURGE_CART,
+});
+
+const purgeMenu = () => ({
+  type: PURGE_MENU,
 });
 
 const updateUserPhone = number => ({
@@ -39,11 +48,13 @@ const storeAuthToken = token => ({
 
 export default {
   refreshMenu,
+  updateRefreshingTracking,
   addItemToCart,
   removeItemFromCart,
   updateUserPhone,
   storeAuthToken,
   clearAuthToken,
   purgeCart,
+  purgeMenu,
 };
 

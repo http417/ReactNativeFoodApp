@@ -5,7 +5,6 @@ import actions from '../store/actions';
 import SignOutButton from './widgets/SignOutButton';
 import CartWidget from './widgets/CartWidget';
 import { persistor } from '../store/configureStore';
-import RefreshMenuWidget from './widgets/RefreshMenuWidget';
 
 class AccountScreen extends React.Component {
   static navigationOptions =({ navigation }) => ({
@@ -20,7 +19,7 @@ class AccountScreen extends React.Component {
       persistor.purge().then(() => persistor.flush()),
     )
       .then(() => {
-        this.props.navigation.navigate('WelcomeScreen');
+        this.props.navigation.navigate('AuthStack');
         Alert.alert('Cart and Credential Data Cleared');
       })
       .catch(() => {
@@ -38,7 +37,6 @@ class AccountScreen extends React.Component {
 
   render = () => (
     <View style={{ flex: 1, justifyContent: 'space-evenly', alignItems: 'center' }}>
-      <RefreshMenuWidget />
       <SignOutButton navigation={this.props.navigation} />
       <View >
         <Button title="Clear User Data" onPress={this._resetConfirm} />
@@ -52,6 +50,7 @@ class AccountScreen extends React.Component {
 const mapDispatchToProps = dispatch => ({
   resetApp: () => Promise.all(
     dispatch(actions.purgeCart()),
+    dispatch(actions.purgeMenu()),
     dispatch(actions.clearAuthToken()),
   ),
 });

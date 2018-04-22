@@ -8,11 +8,23 @@ import dataManager from '../../tools/dataFetch';
 class RefreshServerDataWidget extends React.Component {
   constructor(props) {
     super(props);
-    if (this._menuDataStale(10)) { // check if the data is over 10 minutes old
-      this._refreshStore(); // automatically fetch new data
+    this.state = {
+      myId: Date.now(),
+    };
+    this._RefreshIfNecessasry();
+  }
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.lastRefreshDate !== this.props.lastRefreshDate) {
+      this._RefreshIfNecessasry();
     }
   }
-  _menuDataStale(maxMinutes) {
+  // refresh data after 10 minutes, but only if it's not already under way
+  _RefreshIfNecessasry = () => !this.props.refreshInProgress &&
+    this._menuDataStale(10) &&
+    this._refreshStore()
+
+  _menuDataStale = (maxMinutes) => {
     const lastRefreshDate = this.props.lastRefreshDate || 0;
     const minutesSinceLastRefresh =
       Math.floor(((Math.abs(Date.now() - lastRefreshDate)) / 1000) / 60);
@@ -26,7 +38,7 @@ class RefreshServerDataWidget extends React.Component {
   )
 
   _refreshStore = () => {
-    // console.log('Updating the redux store');
+    this.props.updateRefreshTracking(true);
     dataManager.processData
       .then((newStoreData) => {
         if (this._isNewStoreDataValid) {
@@ -38,6 +50,7 @@ class RefreshServerDataWidget extends React.Component {
       })
       .catch((error) => {
         console.log('Unable to refresh store data: ', error);
+        this.props.updateRefreshTracking(false);
       });
   }
 
@@ -62,14 +75,15 @@ class RefreshServerDataWidget extends React.Component {
 
 // =================== CONNECT TO REDUX STORE ==================== //
 const mapStateToProps = state => ({
-  lastRefreshDate: state.foodStore.lastRefreshDate,
+  refreshInProgress: state.foodStore.refreshTracking.refreshInProgress,
+  lastRefreshDate: state.foodStore.refreshTracking.lastRefreshDate,
   cart: state.user.cart,
 });
 
 const mapDispatchToProps = dispatch => ({
-  refreshMenu: (menuData, cartData) => {
-    dispatch(actions.refreshMenu(menuData, cartData));
-  },
+  updateRefreshTracking: isInProgress =>
+    dispatch(actions.updateRefreshingTracking(isInProgress)),
+  refreshMenu: (menuData, cartData) => dispatch(actions.refreshMenu(menuData, cartData)),
   removeDiscontinuedCartItem: (itemId, quantity) => {
     dispatch(actions.removeItemFromCart(itemId, quantity));
   },
