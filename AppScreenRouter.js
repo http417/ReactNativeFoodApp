@@ -8,7 +8,7 @@ import ItemScreen from './src/components/ItemScreen';
 import SignInScreen from './src/components/SignInScreen';
 import SignUpScreen from './src/components/SignUpScreen';
 import AccountScreen from './src/components/AccountScreen';
-import RootSwitcherScreen from './src/components/RootSwitcherScreen';
+import AppOrAuthStackSwitcher from './src/components/AppOrAuthStackSwitcher';
 import WelcomeScreen from './src/components/WelcomeScreen';
 import CartWidget from './src/components/widgets/CartWidget';
 import LogoHeader from './src/components/widgets/LogoHeader';
@@ -67,7 +67,7 @@ const TabNavigationStack = TabNavigator(
   });
 
 const RootStack = SwitchNavigator(
-  { RootSwitcherScreen, AuthStack, TabNavigationStack },
+  { AppOrAuthStackSwitcher, AuthStack, TabNavigationStack },
   { initialRouteName: 'RootSwitcherScreen' },
 );
 
