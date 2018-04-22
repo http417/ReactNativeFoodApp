@@ -56,6 +56,7 @@ https://facebook.github.io/react-native/docs/getting-started.html
 |----------------/CategoryListScreen.js
 |----------------/CategoryScreen.js
 |----------------/ItemScreen.js
+|----------------/CartScreen.js
 |----------------/AccountScreen.js
 |----------------/WelcomeScreen.js
 |----------------/SignInScreen.js
@@ -82,9 +83,70 @@ https://facebook.github.io/react-native/docs/getting-started.html
 |-----------/priceConversion.js
 |-----------/constants.js
 
-*** ==================     App Structure Descriptions     ================================================ ****
+*** ==================     App Structure, Detailed Descriptions     ====================================== ****
  
-*** ==================     Overview of App Structure     ================================================= ****
+ Root Folder: (./)
+ 1. App.js: HOC's wrap the add the root AppScreenRouter compoment with redux Provider w/store prop 
+   - and a persistance component 
+ 2. AppScreenRouter: Main App UI navigation contains the various tab and stack navigators 
+   - and their associated UI screen components
+   
+ Component Folder: (./src/components/)
+ 1. Main Navigational Comopnent (RootSwitcherScreen.js)
+   - Switches between the stack of user authorization UI screens or the signed-in app UI screens
+ 
+ 2. Authorization User Interface Screen Components:
+   - WelcomeScreen.js, SignInScreen.js, SignUpScreen.js: self-explanatory
+ 
+ 3. Application User Interface Menu Screens Components:
+   - CategoryListScreen.js, Category.js, Item.js, CartScreen.js
+   
+ Component Widgets Folder: (./src/components/widgets/)
+ 1. CartWidget.js displays dynamically updated cart totals (displayed on right of top header)
+ 
+ 2. Cart Screen Widgets: help to compose the Cart Screen page's user interface
+   - CartListItemWidget.js, CartTitleWidget.js, EmptyCartWidget.js
+   
+ 3. Authorization Screen Widgets: help to compose the signIn/signUp screens
+   - credentialsWidget.js, phoneInput.js, passwordInput.js,
+   
+ 4. SignOut Widget: handles sign-out from Account Screen
+ 
+ 5.  Data Fetching and Processing Widget: AutoRefreshServerDataWidget.js
+   - This is an invisible widget that continually downloads updated server data at least once every 10 minutes
+   - This is placed on the welcome screen, initial application screen router, and the cart widgets
+     - so essentially whenever the user navigates across the app, the server will pull new data occassionally
+     
+ Redux Store Folder (./store/)
+ 1. configureStore.js: creates the store object from createStore call and combines the composite reducers into the call
+ 
+ 2. reducers (./store/reducers/)
+   - reducerUser.js: composite reducer that handles the user's data e.g authorization token, cart data
+   - reducerStore.js composite reducer that handles the food menu data
+  
+ 3. actions.js functions that dispatch relevant actions to the store e.g. REFRESH_MENU, ADD_ITEM_TO_CART, etc.
+ 
+*** ==================     Key Design Decisions w/Pros & Cons     ======================================== ****
+
+ 1. redux store's cart data only includes item id's and per item quantity; 
+    - excluded are item price, total price, total quanity, total item count
+    
+    Cons: this made it more difficult to update the cart widget's information displayed on the header.
+          it would have been easier to pass the store's cart total price and quantity to the cart widget 
+          
+    Pros: tried to apply single source of truth principle. didn't want to include data derived from rest of store
+          - cart totals data were derived from item quantityes; prices derived from store menu's prices
+          If price information changes, or the menu changes, then the hope is that this decision will help keep 
+          the cart price and total information always up-to-date.
+          
+    Implementation Details:
+     - the cart widget updates its total information each time cart is updated.  Does this through a passed in
+        prop: a redux store flag that tracks last time cart updated
+     - Cart widget must call forceUpdate on itself in order to visually update the totals
+     
+  2. Authorization Hack
+  
+  3. Food Menu Data Structure Decisions:
 
 
 *** ==================      Issues:       ================================================================ ****
