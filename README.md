@@ -20,6 +20,9 @@ On your Phone:
 4) Aim the phone at the computer's displayed QR code such that it is within the augmented targeting square.
 5) If done properly, hte Expo app should automatically run the ReactNativeFoodApp
 
+Unit Testing Instructions:
+In the root director of the cloned repository, simply enter into the command line: 'npm test' or 'yarn test'
+
 *** ================   Installation Instructions (using the mobile Expo App)    =================== ****
 
 In order to run and develop the application on Android Studio or Apple Xcode, you must 'eject' the app.
