@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'black',
   },
   signButtonSection: {
     flex: 8,
@@ -19,6 +20,7 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   title: {
+    color: 'white',
     justifyContent: 'center',
     alignItems: 'center',
     fontSize: 20,
