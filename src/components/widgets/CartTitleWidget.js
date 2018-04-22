@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Text, StyleSheet, Image, View } from 'react-native';
@@ -37,56 +36,30 @@ const styles = StyleSheet.create({
   },
 });
 
-class CartTitleWidget extends React.Component {
-  constructor(props) {
-    super(props);
-    [this.totalItems, this.totalCost] =
-      CartWidget.calculateCartQuantityCost(this.props.cart, this.props.mainItemDetails);
-  }
+const CartTitleWidget = ({ updatedTotal }) => (
+  <View style={styles.container}>
+    <Image
+      style={styles.headerImage}
+      source={require('./logo2.png')} // eslint-disable-line
+    />
+    <Text style={styles.title}>
+      Total Items In Cart: {updatedTotal}
+    </Text>
+  </View>
+);
 
-  componentDidUpdate = (prevProps) => {
-    if (prevProps.cartLastUpdated !== this.props.cartLastUpdated) {
-      [this.totalItems, this.totalCost] =
-      CartWidget.calculateCartQuantityCost(this.props.cart, this.props.mainItemDetails);
-      this.forceUpdate();
-      // have to call this otherwise widget won't re-render since no props have changed
-    }
-  }
-
-  _calculateTotalItems = () => {
-    let totalItems = 0;
-    Object.entries(this.props.cart).forEach(
-      ([, quantity]) => {
-        totalItems += quantity;
-      },
-    );
-    return totalItems;
-  }
-
-  render = () => (
-    <View style={styles.container}>
-      <Image
-        style={styles.headerImage}
-        source={require('./logo2.png')} // eslint-disable-line
-      />
-      <Text style={styles.title}>
-        Total Items In Cart: {this.totalItems}
-      </Text>
-    </View>
-  );
-}
-
-CartTitleWidget.propTypes = {
-  mainItemDetails: PropTypes.object.isRequired,
-  cart: PropTypes.object.isRequired,
-  cartLastUpdated: PropTypes.number.isRequired,
-};
 
 // =================== CONNECT TO REDUX STORE ==================== //
+
+const recalculateCart = (cart, mainItemDetails) => {
+  const [totalItems, ] =
+      CartWidget.calculateCartQuantityCost(cart, mainItemDetails);
+  return totalItems;
+};
+
 const mapStateToProps = state => ({
-  mainItemDetails: state.foodStore.mainItemDetails,
-  cart: state.user.cart,
-  cartLastUpdated: state.user.cartLastUpdated,
+  updatedTotal: recalculateCart(state.user.cart, state.foodStore.mainItemDetails),
 });
 
 export default connect(mapStateToProps, null)(CartTitleWidget);
+

@@ -53,7 +53,7 @@ class CategoryListScreen extends React.Component {
 }
 
 CategoryListScreen.propTypes = {
-  categoryDetails: PropTypes.object.isRequired,
+  categoryDetails: PropTypes.array.isRequired,
 };
 
 

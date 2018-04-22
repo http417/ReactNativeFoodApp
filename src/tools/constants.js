@@ -23,5 +23,5 @@ export const SIGN_IN_SCREEN = "SignInScreen";
 export const SIGN_UP_SCREEN = "SignUpScreen";
 export const SIGN_OUT_SCREEN = "SignOutScreen";
 export const ACCOUNT_SCREEN = "AccountScreen";
-export const ROOT_SWITCHER_SCREEN = "RootSwitcherScreen";
+export const APP_OR_AUTH_STACK_SWITCHER = "AppOrAuthStackSwitcher";
 export const WELCOME_SCREEN = "WelcomeScreen";

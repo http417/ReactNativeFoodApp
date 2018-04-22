@@ -50,7 +50,7 @@ export default (props) => {
           disabled={stateRemovingInProcess}
         >
           <Text style={styles.itemRemove}>
-            { !stateRemovingInProcess ? `Remove Item` : `Processing...`}
+            { !stateRemovingInProcess ? `Remove Item` : `Updating... `}
           </Text>
         </TouchableHighlight>
       </View>

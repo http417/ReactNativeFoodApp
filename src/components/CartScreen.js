@@ -41,25 +41,12 @@ class CartScreen extends React.Component {
       checkoutInProgress: false,
       checkoutAttempts: 0,
     };
-    this._reCalculateCart();
-  }
-
-  componentDidUpdate = (prevProps) => {
-    if (prevProps.cartLastUpdated !== this.props.cartLastUpdated) {
-      this._reCalculateCart();
-      setInterval(() => this.setState({ removingInProcess: false }), 500);
-      this.props.navigation.state.params.totalItems = this.totalItems;
-    }
-  }
-
-  _reCalculateCart = () => {
-    [this.totalItems, this.totalCost] =
-        CartWidget.calculateCartQuantityCost(this.props.cart, this.props.mainItemDetails);
   }
 
   _removeItem = (id) => {
     this.setState({ removingInProcess: true });
     this.props.onRemoveClick(id);
+    setInterval(() => this.setState({ removingInProcess: false }), 500);
   }
 
   _goToMenu = () => {
@@ -79,6 +66,8 @@ class CartScreen extends React.Component {
   }
 
   render = () => {
+    const { updatedTotals } = this.props;
+    const { totalCost, totalItems } = updatedTotals;
     const emptyCart = <EmptyCartWidget goToMenu={this._goToMenu} />;
     const filledCart = (
       <View style={{ flex: 1 }}>
@@ -102,7 +91,7 @@ class CartScreen extends React.Component {
         />
         <View style={styles.footer}>
           <Text style={styles.totalCostText}>
-            Total Cost: ${convertToDollars(this.totalCost)}
+            Total Cost: ${convertToDollars(totalCost)}
           </Text>
           <View style={styles.signButton}>
             <Button disabled={this.state.checkoutInProgress} title="Check Out" onPress={this._checkout} />
@@ -110,7 +99,7 @@ class CartScreen extends React.Component {
         </View>
       </View>
     );
-    return !this.totalItems ? emptyCart : filledCart;
+    return !totalItems ? emptyCart : filledCart;
   }
 }
 
@@ -118,13 +107,26 @@ CartScreen.propTypes = {
   mainItemDetails: PropTypes.object.isRequired,
   cart: PropTypes.object.isRequired,
   cartLastUpdated: PropTypes.number.isRequired,
+  updatedTotals: PropTypes.shape({
+    totalItems: PropTypes.number,
+    totalCost: PropTypes.number,
+  }).isRequired,
 };
 
 // =================== CONNECT TO REDUX STORE ==================== //
+
+const recalculateCart = (cart, mainItemDetails) => {
+  const [totalItems, totalCost] =
+      CartWidget.calculateCartQuantityCost(cart, mainItemDetails);
+  return { totalItems, totalCost };
+};
+
+
 const mapStateToProps = state => ({
   mainItemDetails: state.foodStore.mainItemDetails,
   cart: state.user.cart,
   cartLastUpdated: state.user.cartLastUpdated,
+  updatedTotals: recalculateCart(state.user.cart, state.foodStore.mainItemDetails),
 });
 const mapDispatchToProps = dispatch => ({
   onRemoveClick: (id) => {

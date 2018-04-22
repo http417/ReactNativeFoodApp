@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ActivityIndicator, StatusBar, View } from 'react-native';
 import { APP_STACK, AUTH_STACK } from '../tools/constants';
 import AutoRefreshServerDataWidget from './widgets/AutoRefreshServerDataWidget';
 
-const RootSwitcherScreen = ({ navigation, authToken }) => {
+const AppOrAuthStackSwitcher = ({ navigation, authToken }) => {
   // for now, token is valid simply if it exists
   function authTokenValid() { return !!authToken; }
 
@@ -26,9 +25,7 @@ const RootSwitcherScreen = ({ navigation, authToken }) => {
   );
 };
 
-RootSwitcherScreen.propTypes = {
-  authToken: PropTypes.string.isRequired,
-};
-
 // =================== CONNECT TO REDUX STORE ==================== //
-export default connect(state => ({ authToken: state.user.authToken }), null)(RootSwitcherScreen);
+export default connect(state => (
+  { authToken: state.user.authToken }), null)(AppOrAuthStackSwitcher);
+  
