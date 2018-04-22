@@ -38,12 +38,11 @@ https://facebook.github.io/react-native/docs/getting-started.html
 
 3. (Fresh Data Upkeep) Since the test data (via AWS) is supposedly refreshed every 10 minutes, I built a system that pulled the test data at least once every 10 minutes, but only if the user navigates to a different page.  (Screen changes trigger a check on data refresh timing).
 
-4. (Data Changes).  The test data might change in a way that negatively affects the user's experience.  For example, a user could be viewing an item page that is no longer available after a data refresh (every 10 minutes).  Worse, the items in a user's cart might have changed -- the price might have changed or perhaps the item in the cart is no longer available.  My test app will update the cart after a data fetch, but it will only update pricing data.
+4. (Data Changes).  The test data might change in a way that negatively affects the user's experience.  For example, a user could be viewing an item page that is no longer available after a data refresh (every 10 minutes).  Worse, the items in a user's cart might have changed -- the price might have changed or perhaps the item in the cart is no longer available.  My test app will update the cart after a data fetch - it will update prices and remove discontinued items.
 
 4.  (Data Cleansing) There were a lot of category data that didn't have sensible names, so I filtered them out.  In a production application, it might make sense to have a large universe of data since there might be other use cases which requires that data.
 
 5. (Cart Logistics) A lot of typical cart features were ommitted in this test app.  For example, there are no tax calculations, delivery charges.
-
 
 
 *** ==================     Overview of App Structure     ================================================= ****
