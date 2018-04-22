@@ -7,6 +7,7 @@ import AutoRefreshDataWidget from './widgets/AutoRefreshDataWidget';
 import CartWidget from './widgets/CartWidget';
 import CartTitleWidget from './widgets/CartTitleWidget';
 import CartListItemWidget from './widgets/CartListItemWidget';
+import EmptyCartWidget from './widgets/EmptyCartWidget';
 import { CATEGORY_LIST_SCREEN } from '../tools/constants';
 
 const styles = StyleSheet.create({
@@ -25,15 +26,6 @@ const styles = StyleSheet.create({
   checkoutButton: {
     width: 300,
   },
-  emptyContainer: {
-    flex: 0.5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  emptyContainerText: {
-    fontSize: 16,
-    marginBottom: 20,
-  },
 });
 
 class CartScreen extends React.Component {
@@ -48,17 +40,20 @@ class CartScreen extends React.Component {
       checkoutInProgress: false,
       checkoutAttempts: 0,
     };
-    [this.totalItems, this.totalCost] =
-      CartWidget.calculateCartQuantityCost(this.props.cart, this.props.mainItemDetails);
+    this._reCalculateCart();
   }
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.cartLastUpdated !== this.props.cartLastUpdated) {
-      [this.totalItems, this.totalCost] =
-        CartWidget.calculateCartQuantityCost(this.props.cart, this.props.mainItemDetails);
-      setInterval(() => this.setState({ removingInProcess: false }), 1000);
+      this._reCalculateCart();
+      setInterval(() => this.setState({ removingInProcess: false }), 500);
       this.props.navigation.state.params.totalItems = this.totalItems;
     }
+  }
+
+  _reCalculateCart = () => {
+    [this.totalItems, this.totalCost] =
+        CartWidget.calculateCartQuantityCost(this.props.cart, this.props.mainItemDetails);
   }
 
   _removeItem = (id) => {
@@ -83,14 +78,7 @@ class CartScreen extends React.Component {
   }
 
   render = () => {
-    const emptyCart = (
-      <View style={styles.emptyContainer}>
-        <Text style={styles.emptyContainerText}>Your cart is empty.  How about your stomach?</Text>
-        <View>
-          <Button title="Continue Shopping" onPress={this._goToMenu} />
-        </View>
-      </View>
-    );
+    const emptyCart = <EmptyCartWidget goToMenu={this._goToMenu} />;
     const filledCart = (
       <View style={{ flex: 1 }}>
         <AutoRefreshDataWidget cartLastUpdated={this.props.cartLastUpdated} />
