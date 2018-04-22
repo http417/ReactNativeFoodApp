@@ -167,29 +167,37 @@ https://facebook.github.io/react-native/docs/getting-started.html
         lastRefreshDate flag in the redux store.  
      - if lastRefreshDate is more than 10 minutes past, data fetch & refresh process is kicked off and lastRefreshDate updated
 
+  5.  React Redux Separation of Container and Presentational Components
+      - Initially I separated all containers (from  associated presentational components) into a separate folder
+      - Decided to combine container components with their associated presentational components in same file.
+      - the initial separated structure provided little actual value; plus the container components are generally tiny.
+      - the combined file structure makes it easier to check what redux store props 
+         are being passed in to presentation component
+         
+         
 *** ==================      Issues:       ================================================================ ****
 
  ** Funtionality Issues
-  - authentication of user's credentials are mocked using local device AsynchStorage
+ 
+ 1) user's last viewed screen isn't stored.  when they leave app and return, they always go through front door.
+ 2) authentication of user's credentials are mocked using local device AsynchStorage
     -- ideally, authentication is done with a legit server authentication process
     -- a mock authentication token is stored in the redux store
     -- password is stored in asynchStorage and is not encrypted
-  - unhandled issue: what happens if the menu is refreshed and user is on an item detail page for an item that is no longer available?
-    - user interface: what will happen to the page
-    - cart data: the cart should be updated to delete the item
-  - need handling for edge cases in case of network problems
-  - components lack default props and prop type checking (TBD)
+    -- multiple people can log into this test app, but there is one cart in redux store that is shared
+       -- i'm ok with this because i don't think this app is meant to be used by multiple users anyway
+ 3) updated server data may cause unhandled issues
+    -- e.g what happens if user is on an item detail page for an item that is no longer available?
+    - user interface: what will happen to that page
+ 4) if data is stale, the checkout process needs a workflow to update the cart and proactively notify user
 
-** Reliability Issues:
-  - need to implement unit tests (TBD)
+** Code Maintenance Issues:
+ 1) need to implement unit tests (TBD)
+ 2) components lack default props and prop type checking (TBD)
 
 ** Clean Code Standards
-  - styling is littered throughout - very messy
+ 1) styling is littered throughout - very messy
     -- consider using styled components to help bring order to chaos
-  - code can be cleaned up such as breaking large functions apart and commenting more
-
--- even though multiple people can log in through this test app, there is only only cart in the redux store that all users share
-  -- i'm ok with this because i don't think this app is meant to be used by multiple users anyway
 
 *** ================== Create React Native App Documentatin: ================== ****
 
