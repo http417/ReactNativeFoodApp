@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, Text, Button, FlatList, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../store/actions';
@@ -112,6 +113,12 @@ class CartScreen extends React.Component {
     return !this.totalItems ? emptyCart : filledCart;
   }
 }
+
+CartScreen.propTypes = {
+  mainItemDetails: PropTypes.object.isRequired,
+  cart: PropTypes.object.isRequired,
+  cartLastUpdated: PropTypes.number.isRequired,
+};
 
 // =================== CONNECT TO REDUX STORE ==================== //
 const mapStateToProps = state => ({

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, Text, FlatList, TouchableHighlight, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import LogoHeader from './widgets/LogoHeader';
@@ -50,6 +51,11 @@ class CategoryListScreen extends React.Component {
     </View>
   );
 }
+
+CategoryListScreen.propTypes = {
+  categoryDetails: PropTypes.object.isRequired,
+};
+
 
 // =================== CONNECT TO REDUX STORE ==================== //
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { TouchableHighlight, Text, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../../store/actions';
@@ -31,6 +32,10 @@ const SignOutButton = ({ clearAuthToken, navigation }) => {
   );
 };
 
+SignOutButton.propTypes = {
+  clearAuthToken: PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired,
+};
 // =================== CONNECT TO REDUX STORE ==================== //
 const mapDispatchToProps = dispatch => ({
   // essentially we are just clearing out the stored Auth Token

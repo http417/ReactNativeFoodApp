@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
@@ -97,5 +98,10 @@ class CredentialsWidget extends React.Component {
     </View>
   );
 }
+
+CredentialsWidget.propTypes = {
+  isSigningUp: PropTypes.bool.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default CredentialsWidget;

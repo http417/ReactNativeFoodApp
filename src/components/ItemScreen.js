@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../store/actions';
@@ -56,6 +57,9 @@ class ItemScreen extends React.Component {
   );
 }
 
+ItemScreen.propTypes = {
+  onAddClick: PropTypes.func.isRequired,
+};
 // =================== CONNECT TO REDUX STORE ==================== //
 const mapStateToProps = state => ({ mainItemDetails: state.foodStore.mainItemDetails });
 

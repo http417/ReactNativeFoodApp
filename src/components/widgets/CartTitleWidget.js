@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Text, StyleSheet, Image, View } from 'react-native';
@@ -74,6 +75,12 @@ class CartTitleWidget extends React.Component {
     </View>
   );
 }
+
+CartTitleWidget.propTypes = {
+  mainItemDetails: PropTypes.object.isRequired,
+  cart: PropTypes.object.isRequired,
+  cartLastUpdated: PropTypes.number.isRequired,
+};
 
 // =================== CONNECT TO REDUX STORE ==================== //
 const mapStateToProps = state => ({

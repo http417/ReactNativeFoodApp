@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, Text, FlatList, TouchableHighlight, StyleSheet } from 'react-native';
 import { ITEM_SCREEN } from '../tools/constants';
@@ -66,6 +67,11 @@ class CategoryScreen extends React.Component {
     </View>
   );
 }
+
+CategoryScreen.propTypes = {
+  mainItemDetails: PropTypes.object.isRequired,
+  categoryToMainsHash: PropTypes.object.isRequired,
+};
 
 // =================== CONNECT TO REDUX STORE ==================== //
 const mapStateToProps = state => ({

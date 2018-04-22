@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AsyncStorage, Alert } from 'react-native';
 import actions from '../store/actions';
@@ -26,6 +27,11 @@ const SignUpScreen = ({ storeAuthToken, navigation }) => {
   return <CredentialsWidget onSubmit={_onSubmit} isSigningUp />;
 };
 
+SignUpScreen.propTypes = {
+  storeAuthToken: PropTypes.func.isRequired,
+};
+
+// ================ CONNECT TO REDUX STORE =============== //
 const mapDispatchToProps = dispatch => ({
   storeAuthToken: (token) => {
     dispatch(actions.storeAuthToken(token));

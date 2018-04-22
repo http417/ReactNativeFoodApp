@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AsyncStorage, Alert } from 'react-native';
 import CredentialsWidget from './widgets/CredentialsWidget';
@@ -19,6 +20,10 @@ const SignInScreen = ({ storeAuthToken, navigation }) => {
       .catch(error => console.log('user token fetching error: ', error));
   }
   return (<CredentialsWidget isSigningUp={false} onSubmit={_onSubmit} />);
+};
+
+SignInScreen.propTypes = {
+  storeAuthToken: PropTypes.func.isRequired,
 };
 
 // ================ CONNECT TO REDUX STORE =============== //

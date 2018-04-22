@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ActivityIndicator, StatusBar, View } from 'react-native';
 import { APP_STACK, AUTH_STACK } from '../tools/constants';
@@ -23,6 +24,10 @@ const RootSwitcherScreen = ({ navigation, authToken }) => {
       <StatusBar barStyle="default" />
     </View>
   );
+};
+
+RootSwitcherScreen.propTypes = {
+  authToken: PropTypes.string.isRequired,
 };
 
 // =================== CONNECT TO REDUX STORE ==================== //

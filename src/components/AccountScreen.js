@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, Button, AsyncStorage, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../store/actions';
@@ -45,6 +46,10 @@ class AccountScreen extends React.Component {
     </View>
   );
 }
+
+AccountScreen.propTypes = {
+  resetApp: PropTypes.func.isRequired,
+};
 
 // ================ CONNECT TO REDUX STORE =============== //
 
