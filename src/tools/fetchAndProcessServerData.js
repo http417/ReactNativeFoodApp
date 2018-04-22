@@ -1,3 +1,27 @@
+// *********************** Data Processing Helper Functions ************************ //
+
+// 1. fetchServerData(URL)
+
+//    fetch json data from the AWS server and return two separate objects
+//     for category and main entree data
+
+// 2. buildCateogryToMainsHash
+
+//   built a hashing data structure maps category id to an array of associated main entrees
+//   this data structure is specifically to speed up the loading of individual category pages
+//   this helper function also creates a new object that stores a subset of the entree data
+//   provided by server
+//   this app currently only needs price, description and name, so the other stuff does not
+//   need to be imported
+
+// 3. filterOutEmptyCategories
+
+//   many of the categories returned from the server do not have any associated entrees,
+//   so fitler them out
+
+
+// ******************************************************************************** //
+
 const helperFNs = {
   dataURL: "https://s3.amazonaws.com/staginggooduncledigests/products_istcki0x000h28d97a9rv9jp.json",
   buildCategoryToMainsHash: (fetchedMainsData) => {
@@ -47,6 +71,12 @@ const helperFNs = {
   },
 };
 
+// ******************************************************************************************* //
+
+//                             MAIN DATA FETCHING & PROCESSING FUNCTION
+
+// ******************************************************************************************* //
+
 const fetchAndProcessServerData = new Promise((resolve, reject) => {
   helperFNs.fetchServerData(helperFNs.dataURL)
     .then(([fetchedCategoryData, fetchedMainsData]) => {
@@ -67,35 +97,3 @@ const fetchAndProcessServerData = new Promise((resolve, reject) => {
 });
 
 export default fetchAndProcessServerData;
-
-/*
-// not using this function, but it visually shows what the store looks like
-const createMockReduxStoreData = () => ({
-  user: {
-    authToken: '',
-    phone: '',
-    cartLastUpdated: '', // used to trigger updates to the cart widget
-    cart: {
-      1: 3, // itemId: quantity
-    },
-  },
-  foodStore: {
-    refreshTracking: { lastRefreshDate: '', refreshInProgress: false },
-    rawCategoryData: {
-      0: {
-        id: 101,
-        name: 'Sandwiches',
-      },
-    },
-    categoryContents: {
-      101: [1],
-    },
-    mainItemDetails: {
-      // id: {name, price, description}
-      1: { name: 'Chicken Fingers', price: 1299,
-        description: 'battered diabetes sauted with diahrea' },
-    },
-  },
-});
-*/
-
