@@ -1,4 +1,4 @@
-*** ==================     Installation Instructions (using the mobile Expo App)     ===================== ****
+*** ================   Installation Instructions (using the mobile Expo App)   =================== ****
 
 This application is most easily viewed by running it on an Android or iPhone device with the Expo mobile client app connected to the same wireless network as your computer.
 
@@ -20,7 +20,7 @@ On your Phone:
 4) Aim the phone at the computer's displayed QR code such that it is within the augmented targeting square.
 5) If done properly, hte Expo app should automatically run the ReactNativeFoodApp
 
-*** ==================     Installation Instructions (using the mobile Expo App)       =================== ****
+*** ================   Installation Instructions (using the mobile Expo App)    =================== ****
 
 In order to run and develop the application on Android Studio or Apple Xcode, you must 'eject' the app.
 
@@ -29,7 +29,7 @@ Detailed instructions are provided here:
 https://facebook.github.io/react-native/docs/getting-started.html
 
 
-*** ==================     Assumptions About the Business Requirements     =============================== ****
+*** ==================     Assumptions About the Business Requirements     ========================= ****
 
 1.  (Authentication)  I'm assuming that for the purposes of this project, it's ok to create a mock-up of a user authentication and sign-up system.  This app simply stores user phone numbers and (unencrypted) passwords in the devices local storage via React Native's AsyncStorage component.  For a real project, a sophisticated authentication system would be built or a 3rd party tool would be integrated with.  For a phone number username system, a 3rd party provider like Twilio could be useful.
 
@@ -45,7 +45,7 @@ https://facebook.github.io/react-native/docs/getting-started.html
 5. (Cart Logistics) A lot of typical cart features were ommitted in this test app.  For example, there are no tax calculations, delivery charges.
 
 
-*** ==================     Overview of App Structure     ================================================= ****
+*** ==================     Overview of App Structure     ============================================ ****
 
 |-App.js
 
@@ -85,7 +85,7 @@ https://facebook.github.io/react-native/docs/getting-started.html
 |-----------/fetchAndProcessServerData, priceConversion, constants
 
 
-*** ==================     App Structure, Detailed Descriptions     ====================================== ****
+*** ==================     App Structure, Detailed Descriptions     ================================ ****
  
  Root Folder: (./)
  1. App.js: HOC's wrap the add the root AppScreenRouter compoment with redux Provider w/store prop 
@@ -128,7 +128,7 @@ https://facebook.github.io/react-native/docs/getting-started.html
   
  3. actions.js functions that dispatch relevant actions to the store e.g. REFRESH_MENU, ADD_ITEM_TO_CART, etc.
  
-*** ==================     Key Design Decisions w/Pros & Cons     ======================================== ****
+*** ==================     Key Design Decisions w/Pros & Cons     =================================== ****
 
  1. redux store's cart data only includes item id's and per item quantity; 
     - excluded are item price, total price, total quanity, total item count
@@ -174,7 +174,7 @@ https://facebook.github.io/react-native/docs/getting-started.html
          are being passed in to presentation component
          
          
-*** ==================      Issues:       ================================================================ ****
+*** ==================      Issues:       =========================================================== ****
 
  ** Funtionality Issues
  
