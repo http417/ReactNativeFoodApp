@@ -133,18 +133,17 @@ https://facebook.github.io/react-native/docs/getting-started.html
  1. redux store's cart data only includes item id's and per item quantity; 
     - excluded are item price, total price, total quanity, total item count
     
-    Cons: this made it more difficult to update the cart widget's information displayed on the header.
+    Cons: this made it slightly more difficult to update the cart widget's information displayed on the header.
           it would have been easier to pass the store's cart total price and quantity to the cart widget 
           
     Pros: tried to apply single source of truth principle. didn't want to include data derived from rest of store
-          - cart totals data were derived from item quantityes; prices derived from store menu's prices
+          - (cart totals data were derived from item quantityes; prices derived from store menu's prices)
           If price information changes, or the menu changes, then the hope is that this decision will help keep 
           the cart price and total information always up-to-date.
           
     Implementation Details:
      - the cart widget updates its total information each time cart is updated.  Does this through a passed in
-        prop: a redux store flag that tracks last time cart updated
-     - Cart widget must call forceUpdate on itself in order to visually update the totals
+        prop { totalItems, totalCost } that is initialized in and passed from the react redux connect HOC.
      
   2. Authorization Hack:
      A professional app would authorize against an authorization service on the cloud, so this is a hack for demo purposes.
