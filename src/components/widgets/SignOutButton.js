@@ -1,5 +1,7 @@
 import React from 'react';
 import { TouchableHighlight, Text, View, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import actions from '../../store/actions';
 
 const styles = StyleSheet.create({
   buttonText: {
@@ -13,20 +15,27 @@ const styles = StyleSheet.create({
   },
 });
 
-class SignOutButton extends React.Component {
-  _signOut = () => {
+const SignOutButton = ({ clearAuthToken, navigation }) => {
+  function _signOut() {
     // clear out the user token
-    this.props.signOut();
-    this.props.navigation.navigate('Auth');
+    clearAuthToken();
+    navigation.navigate('AuthStack');
   }
-
-  render = () => (
-    <TouchableHighlight onPress={this._signOut}>
+  return (
+    <TouchableHighlight onPress={_signOut}>
       <View>
         <Text style={styles.buttonText}>Sign Out</Text>
       </View>
     </TouchableHighlight>
-  )
-}
+  );
+};
 
-export default SignOutButton;
+// =================== CONNECT TO REDUX STORE ==================== //
+const mapDispatchToProps = dispatch => ({
+  // essentially we are just clearing out the stored Auth Token
+  clearAuthToken: () => {
+    dispatch(actions.clearAuthToken());
+  },
+});
+
+export default connect(null, mapDispatchToProps)(SignOutButton);

@@ -13,12 +13,10 @@ const persistConfig = {
   stateReconciler: autoMergeLevel2,
 };
 
-const myPersistReducer = () => {
-  return persistReducer(persistConfig, combineReducers({
-    user: reducerUser,
-    foodStore: reducerFoodStore,
-  }));
-};
+const myPersistReducer = () => persistReducer(persistConfig, combineReducers({
+  user: reducerUser,
+  foodStore: reducerFoodStore,
+}));
 
 export const store = createStore(myPersistReducer());
 export const persistor = persistStore(store);
@@ -32,7 +30,3 @@ export const fetchMenuData = () => {
       console.log("Problem fetching data to initialize redux store: ", error);
     });
 };
-
-const unsubscribe = store.subscribe(() => {
-  // alert('state updated');
-});

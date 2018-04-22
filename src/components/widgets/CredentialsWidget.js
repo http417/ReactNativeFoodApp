@@ -43,7 +43,8 @@ class CredentialsWidget extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     // check if the submit button should be enabled or disabled, but only of tje
-    if (this.state.submitReady === prevState.submitReady) {
+    if ((this.state.password !== prevState.password) ||
+    (this.state.number !== prevState.number)) {
       this._checkSubmitReadiness();
     }
   }
@@ -51,12 +52,10 @@ class CredentialsWidget extends React.Component {
   _onPHChange = (text) => {
     if (validation.isPHValid(text)) {
       this.setState({ number: text.trim() });
-      this._checkSubmitReadiness();
     }
   }
   _onPasswordChange = (text) => {
     this.setState({ password: text });
-    this._checkSubmitReadiness();
   }
 
   _checkSubmitReadiness = () => {
@@ -71,13 +70,12 @@ class CredentialsWidget extends React.Component {
 
   _onSubmit = () => {
     this.setState({ submitInProcess: true });
-    if (this.props.isSigningUp) {
-      // do additioanal check to see if password is valid input
-      if (!validation.isPasswordValid(this.state.password)) {
-        this.setState({ password: '' });
-        alert('password may only contain numbers and a-z,A-Z characters');
-        return;
-      }
+    // if signing up, do additioanal check to see if password is valid input
+    if (this.props.isSigningUp && !validation.isPasswordValid(this.state.password)) {
+      this.setState({ password: '' });
+      alert('password may only contain numbers and a-z,A-Z characters');
+      this.setState({ submitInProcess: false });
+      return;
     }
     this.props.onSubmit(this.state.number, this.state.password);
     this.setState({ submitInProcess: false });

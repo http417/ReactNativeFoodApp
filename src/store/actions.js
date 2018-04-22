@@ -1,4 +1,4 @@
-import { PURGE_CART, REFRESH_MENU, ADD_ITEM_TO_CART, REMOVE_ITEM_FROM_CART, SIGN_OUT, SIGN_IN, UPDATE_USER_PHONE } from '../constants/constants';
+import { PURGE_CART, REFRESH_MENU, ADD_ITEM_TO_CART, REMOVE_ITEM_FROM_CART, CLEAR_AUTH_TOKEN, STORE_AUTH_TOKEN, UPDATE_USER_PHONE } from '../constants/constants';
 
 const refreshMenu = menuData => ({
   type: REFRESH_MENU,
@@ -28,12 +28,12 @@ const removeItemFromCart = (id, quantity = -1) => ({
   quantity,
 });
 
-const signOut = () => ({
-  type: SIGN_OUT,
+const clearAuthToken = () => ({
+  type: CLEAR_AUTH_TOKEN,
 });
 
-const signIn = token => ({
-  type: SIGN_IN,
+const storeAuthToken = token => ({
+  type: STORE_AUTH_TOKEN,
   token,
 });
 
@@ -42,8 +42,8 @@ export default {
   addItemToCart,
   removeItemFromCart,
   updateUserPhone,
-  signOut,
-  signIn,
+  storeAuthToken,
+  clearAuthToken,
   purgeCart,
 };
 

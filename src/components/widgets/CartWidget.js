@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Text, StyleSheet, TouchableHighlight, View } from 'react-native';
 import priceConversion from '../../tools/priceConversion';
-import RefreshMenuWidget from '../containers/containerRefreshMenuWidget';
+import RefreshMenuWidget from './RefreshMenuWidget';
 
 const styles = StyleSheet.create({
   container: {
