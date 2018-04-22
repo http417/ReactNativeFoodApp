@@ -48,8 +48,43 @@ https://facebook.github.io/react-native/docs/getting-started.html
 
 *** ==================     Overview of App Structure     ================================================= ****
 
+|-App.js
+|-AppScreenRouter.js
+|--src/
+|-----/components/
+|----------------/RootSwitcherScreen.js
+|----------------/CategoryListScreen.js
+|----------------/CategoryScreen.js
+|----------------/ItemScreen.js
+|----------------/AccountScreen.js
+|----------------/WelcomeScreen.js
+|----------------/SignInScreen.js
+|----------------/SignUpScreen.js
+|----------------/LoadingScreen.js
+|----------------/widgets/
+|------------------------/AutoRefreshServerDataWidget.js
+|------------------------/CartWidget.js
+|------------------------/CartListItemWidget.js
+|------------------------/CartTitleWidget.js
+|------------------------/EmptyCartWidget.js
+|------------------------/CredentialsWidget.js
+|------------------------/PhoneInput.js
+|------------------------/PasswordInput.js
+|------------------------/LogoHeader.js
+|-----/store/
+|-----------/actions.js
+|-----------/configureStore.js
+|-----------/reducers/
+|--------------------/reducerFoodStore.js
+|--------------------/reducerUserStore.js
+|-----/tools/
+|-----------/fetchAndProcessServerData.js
+|-----------/priceConversion.js
+|-----------/constants.js
 
-
+*** ==================     App Structure Descriptions     ================================================ ****
+ 
+*** ==================     Overview of App Structure     ================================================= ****
 
 
 *** ==================      Issues:       ================================================================ ****
