@@ -2,9 +2,9 @@ import { PURGE_CART, PURGE_MENU, REFRESH_MENU, UPDATE_REFRESH_TRACKING, ADD_ITEM
 
 const refreshMenu = menuData => ({
   type: REFRESH_MENU,
-  rawCategoryData: menuData.rawCategoryData,
+  categoryDetails: menuData.categoryDetails,
   mainItemDetails: menuData.mainItemDetails,
-  categoryContents: menuData.categoryContents,
+  categoryToEntreesHash: menuData.categoryToEntreesHash,
 });
 
 const updateRefreshingTracking = isInProgress => ({

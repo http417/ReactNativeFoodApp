@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableHighlight, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import actions from '../store/actions';
-import dataManager from '../tools/dataFetch';
 import LogoHeader from './widgets/LogoHeader';
 import { CATEGORY_SCREEN } from '../tools/constants';
 
@@ -37,7 +35,7 @@ class CategoryListScreen extends React.Component {
   render = () => (
     <View>
       <FlatList
-        data={Object.values(this.props.rawCategoryData)}
+        data={Object.values(this.props.categoryDetails)}
         renderItem={
           ({ item }) => (
             <TouchableHighlight
@@ -56,14 +54,8 @@ class CategoryListScreen extends React.Component {
 // =================== CONNECT TO REDUX STORE ==================== //
 
 const mapStateToProps = state => ({
-  rawCategoryData: state.foodStore.rawCategoryData,
+  categoryDetails: state.foodStore.categoryDetails,
 });
 
-const mapDispatchToProps = dispatch => ({
-  refreshMenu: () => dataManager.processData() // fetch the data here
-    .then(menuData => dispatch(actions.refreshMenu(menuData)))
-    .catch(error => console.log("Problem fetching menu data: ", error)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryListScreen);
+export default connect(mapStateToProps, null)(CategoryListScreen);
 

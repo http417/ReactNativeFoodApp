@@ -35,10 +35,10 @@ class CategoryScreen extends React.Component {
     super(props);
     const { params } = this.props.navigation.state;
     this.mainItemDetails = this.props.mainItemDetails;
-    this.categoryContents = this.props.categoryContents;
+    this.categoryToEntreesHash = this.props.categoryToEntreesHash;
     this.id = params ? params.id : 0;
     // grab main items in this category
-    this.itemsList = this.categoryContents[this.id];
+    this.itemsList = this.categoryToEntreesHash[this.id];
   }
 
   itemClicked = (itemID, itemName) => {
@@ -70,7 +70,7 @@ class CategoryScreen extends React.Component {
 // =================== CONNECT TO REDUX STORE ==================== //
 const mapStateToProps = state => ({
   mainItemDetails: state.foodStore.mainItemDetails,
-  categoryContents: state.foodStore.categoryContents,
+  categoryToEntreesHash: state.foodStore.categoryToEntreesHash,
 });
 
 export default connect(mapStateToProps, null)(CategoryScreen);

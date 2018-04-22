@@ -3,10 +3,10 @@ import { REFRESH_MENU, UPDATE_REFRESH_TRACKING, PURGE_MENU } from '../../tools/c
 
 
 // { 0: {name: 'Meats', id: 'sdsadg' }, }
-const rawCategoryDataReducer = (state = {}, action) => {
+const categoryDetailsReducer = (state = {}, action) => {
   switch (action.type) {
     case REFRESH_MENU:
-      return action.rawCategoryData;
+      return action.categoryDetails;
     case PURGE_MENU:
       return {};
     default:
@@ -16,10 +16,10 @@ const rawCategoryDataReducer = (state = {}, action) => {
 
 
 // { 23523525: [6312361236,2136236,236123612], }
-const categoryContentsReducer = (state = {}, action) => {
+const categoryToEntreesHashReducer = (state = {}, action) => {
   switch (action.type) {
     case REFRESH_MENU:
-      return action.categoryContents;
+      return action.categoryToEntreesHash;
     case PURGE_MENU:
       return {};
     default:
@@ -61,8 +61,8 @@ const refreshTrackingReducer = (state = initialRefreshTrackingState, action) => 
 };
 
 export default combineReducers({
-  categoryContents: categoryContentsReducer,
+  categoryToEntreesHash: categoryToEntreesHashReducer,
   mainItemDetails: mainItemDetailsReducer,
-  rawCategoryData: rawCategoryDataReducer,
+  categoryDetails: categoryDetailsReducer,
   refreshTracking: refreshTrackingReducer,
 });
