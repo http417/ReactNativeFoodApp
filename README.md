@@ -49,10 +49,15 @@ https://facebook.github.io/react-native/docs/getting-started.html
 *** ==================     Overview of App Structure     ================================================= ****
 
 |-App.js
+
 |-AppScreenRouter.js
+
 |--src/
+
 |-----/components/
+
 |----------------/RootSwitcherScreen.js
+
 |----------------/CategoryListScreen.js
 |----------------/CategoryScreen.js
 |----------------/ItemScreen.js
