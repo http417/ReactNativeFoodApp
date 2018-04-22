@@ -56,37 +56,35 @@ https://facebook.github.io/react-native/docs/getting-started.html
 
 |-----/components/
 
-|----------------/RootSwitcherScreen.js
+|----------------/ RootSwitcherScreen.js
 
-|----------------/CategoryListScreen.js
-|----------------/CategoryScreen.js
-|----------------/ItemScreen.js
-|----------------/CartScreen.js
-|----------------/AccountScreen.js
-|----------------/WelcomeScreen.js
-|----------------/SignInScreen.js
-|----------------/SignUpScreen.js
-|----------------/LoadingScreen.js
+|----------------/ (UI App Components) CategoryListScreen,CategoryScreen ItemScreen, CartScreen
+
+|----------------/ (UI Authorization Components) Welcome Screen, SignInScreen, SignUpScreen, LoadingScreen
+
+|----------------/ (UI Account Settings Componenents) AccountScreen
+
 |----------------/widgets/
-|------------------------/AutoRefreshServerDataWidget.js
-|------------------------/CartWidget.js
-|------------------------/CartListItemWidget.js
-|------------------------/CartTitleWidget.js
-|------------------------/EmptyCartWidget.js
-|------------------------/CredentialsWidget.js
-|------------------------/PhoneInput.js
-|------------------------/PasswordInput.js
-|------------------------/LogoHeader.js
+
+|------------------------/ (UI App Widgets) CartWidget,CartListItem,CartTitleWidget,EmptyCartWidget, LogoHeader
+
+|------------------------/ (UI Authorization Widgets) CredentialsWidge, PhoneInput, PasswordInput,SignOutButton
+
+|------------------------/ (Data Fetching & Processing Widget) AutoRefreshServerDataWidget.js
+
 |-----/store/
-|-----------/actions.js
-|-----------/configureStore.js
+
+|-----------/actions.js, configureStore.js
+
 |-----------/reducers/
-|--------------------/reducerFoodStore.js
-|--------------------/reducerUserStore.js
+
+|--------------------/reducerFoodStore.js, reducerUserStore.js
+
+
 |-----/tools/
-|-----------/fetchAndProcessServerData.js
-|-----------/priceConversion.js
-|-----------/constants.js
+
+|-----------/fetchAndProcessServerData, priceConversion, constants
+
 
 *** ==================     App Structure, Detailed Descriptions     ====================================== ****
  
