@@ -192,7 +192,8 @@ https://facebook.github.io/react-native/docs/getting-started.html
 
 ** Code Maintenance Issues:
  1) need to implement unit tests (TBD)
- 2) components lack default props and prop type checking (TBD)
+ 2) PropType Checking: for my store data structures e.g. categoryDetails, I use dynamic string keys, and I'm not
+    sure yet how to validate these. 
 
 ** Clean Code Standards
  1) styling is littered throughout - very messy
