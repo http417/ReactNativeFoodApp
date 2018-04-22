@@ -1,4 +1,4 @@
-*** ==================     Installation Instructions (using the mobile Expo App)     ===================== ****
+*** ================   Installation Instructions (using the mobile Expo App)   =================== ****
 
 This application is most easily viewed by running it on an Android or iPhone device with the Expo mobile client app connected to the same wireless network as your computer.
 
@@ -20,7 +20,7 @@ On your Phone:
 4) Aim the phone at the computer's displayed QR code such that it is within the augmented targeting square.
 5) If done properly, hte Expo app should automatically run the ReactNativeFoodApp
 
-*** ==================     Installation Instructions (using the mobile Expo App)       =================== ****
+*** ================   Installation Instructions (using the mobile Expo App)    =================== ****
 
 In order to run and develop the application on Android Studio or Apple Xcode, you must 'eject' the app.
 
@@ -29,7 +29,7 @@ Detailed instructions are provided here:
 https://facebook.github.io/react-native/docs/getting-started.html
 
 
-*** ==================     Assumptions About the Business Requirements     =============================== ****
+*** ==================     Assumptions About the Business Requirements     ========================= ****
 
 1.  (Authentication)  I'm assuming that for the purposes of this project, it's ok to create a mock-up of a user authentication and sign-up system.  This app simply stores user phone numbers and (unencrypted) passwords in the devices local storage via React Native's AsyncStorage component.  For a real project, a sophisticated authentication system would be built or a 3rd party tool would be integrated with.  For a phone number username system, a 3rd party provider like Twilio could be useful.
 
@@ -38,43 +38,165 @@ https://facebook.github.io/react-native/docs/getting-started.html
 
 3. (Fresh Data Upkeep) Since the test data (via AWS) is supposedly refreshed every 10 minutes, I built a system that pulled the test data at least once every 10 minutes, but only if the user navigates to a different page.  (Screen changes trigger a check on data refresh timing).
 
-4. (Data Changes).  The test data might change in a way that negatively affects the user's experience.  For example, a user could be viewing an item page that is no longer available after a data refresh (every 10 minutes).  Worse, the items in a user's cart might have changed -- the price might have changed or perhaps the item in the cart is no longer available.  My test app will update the cart after a data fetch, but it will only update pricing data.
+4. (Data Changes).  The test data might change in a way that negatively affects the user's experience.  For example, a user could be viewing an item page that is no longer available after a data refresh (every 10 minutes).  Worse, the items in a user's cart might have changed -- the price might have changed or perhaps the item in the cart is no longer available.  My test app will update the cart after a data fetch - it will update prices and remove discontinued items.
 
 4.  (Data Cleansing) There were a lot of category data that didn't have sensible names, so I filtered them out.  In a production application, it might make sense to have a large universe of data since there might be other use cases which requires that data.
 
 5. (Cart Logistics) A lot of typical cart features were ommitted in this test app.  For example, there are no tax calculations, delivery charges.
 
 
+*** ==================     Overview of App Structure     ============================================ ****
 
-*** ==================     Overview of App Structure     ================================================= ****
+|-App.js
+
+|-AppScreenRouter.js
+
+|--src/
+
+|-----/components/
+
+|----------------/ RootSwitcherScreen.js
+
+|----------------/ (UI App Components) CategoryListScreen,CategoryScreen ItemScreen, CartScreen
+
+|----------------/ (UI Authorization Components) Welcome Screen, SignInScreen, SignUpScreen, LoadingScreen
+
+|----------------/ (UI Account Settings Componenents) AccountScreen
+
+|----------------/widgets/
+
+|------------------------/ (UI App Widgets) CartWidget,CartListItem,CartTitleWidget,EmptyCartWidget, LogoHeader
+
+|------------------------/ (UI Authorization Widgets) CredentialsWidge, PhoneInput, PasswordInput,SignOutButton
+
+|------------------------/ (Data Fetching & Processing Widget) AutoRefreshServerDataWidget.js
+
+|-----/store/
+
+|-----------/actions.js, configureStore.js
+
+|-----------/reducers/
+
+|--------------------/reducerFoodStore.js, reducerUserStore.js
 
 
+|-----/tools/
+
+|-----------/fetchAndProcessServerData, priceConversion, constants
 
 
+*** ==================     App Structure, Detailed Descriptions     ================================ ****
+ 
+ Root Folder: (./)
+ 1. App.js: HOC's wrap the add the root AppScreenRouter compoment with redux Provider w/store prop 
+   - and a persistance component 
+ 2. AppScreenRouter: Main App UI navigation contains the various tab and stack navigators 
+   - and their associated UI screen components
+   
+ Component Folder: (./src/components/)
+ 1. Main Navigational Comopnent (RootSwitcherScreen.js)
+   - Switches between the stack of user authorization UI screens or the signed-in app UI screens
+ 
+ 2. Authorization User Interface Screen Components:
+   - WelcomeScreen.js, SignInScreen.js, SignUpScreen.js: self-explanatory
+ 
+ 3. Application User Interface Menu Screens Components:
+   - CategoryListScreen.js, Category.js, Item.js, CartScreen.js
+   
+ Component Widgets Folder: (./src/components/widgets/)
+ 1. CartWidget.js displays dynamically updated cart totals (displayed on right of top header)
+ 
+ 2. Cart Screen Widgets: help to compose the Cart Screen page's user interface
+   - CartListItemWidget.js, CartTitleWidget.js, EmptyCartWidget.js
+   
+ 3. Authorization Screen Widgets: help to compose the signIn/signUp screens
+   - credentialsWidget.js, phoneInput.js, passwordInput.js,
+   
+ 4. SignOut Widget: handles sign-out from Account Screen
+ 
+ 5.  Data Fetching and Processing Widget: AutoRefreshServerDataWidget.js
+   - This is an invisible widget that continually downloads updated server data at least once every 10 minutes
+   - This is placed on the welcome screen, initial application screen router, and the cart widgets
+     - so essentially whenever the user navigates across the app, the server will pull new data occassionally
+     
+ Redux Store Folder (./store/)
+ 1. configureStore.js: creates the store object from createStore call and combines the composite reducers into the call
+ 
+ 2. reducers (./store/reducers/)
+   - reducerUser.js: composite reducer that handles the user's data e.g authorization token, cart data
+   - reducerStore.js composite reducer that handles the food menu data
+  
+ 3. actions.js functions that dispatch relevant actions to the store e.g. REFRESH_MENU, ADD_ITEM_TO_CART, etc.
+ 
+*** ==================     Key Design Decisions w/Pros & Cons     =================================== ****
 
-*** ==================      Issues:       ================================================================ ****
+ 1. redux store's cart data only includes item id's and per item quantity; 
+    - excluded are item price, total price, total quanity, total item count
+    
+    Cons: this made it more difficult to update the cart widget's information displayed on the header.
+          it would have been easier to pass the store's cart total price and quantity to the cart widget 
+          
+    Pros: tried to apply single source of truth principle. didn't want to include data derived from rest of store
+          - cart totals data were derived from item quantityes; prices derived from store menu's prices
+          If price information changes, or the menu changes, then the hope is that this decision will help keep 
+          the cart price and total information always up-to-date.
+          
+    Implementation Details:
+     - the cart widget updates its total information each time cart is updated.  Does this through a passed in
+        prop: a redux store flag that tracks last time cart updated
+     - Cart widget must call forceUpdate on itself in order to visually update the totals
+     
+  2. Authorization Hack:
+     A professional app would authorize against an authorization service on the cloud, so this is a hack for demo purposes.
+     - user's phone number is used as a faux authorization token stored in the redux store,
+       - a user is sign'd in if the store containers this faux auth token
+     - user's account is uniquely identified by their phone number
+     - phone numeer and password credentials pair information is stored using AsyncStorage
+  
+  3. Food Menu Data Structure Decisions:
+     After AWS server data is fetched, it is placed in three main object structures:
+     - categoryDetails: basically the raw category data fetched from server, stripped of categories with 0 associated mains 
+     - menuItemDetails: basically the raw mains item data fetched from server, with just the price, description and name data
+     - categoryToMainsHash: this data structure contains derived data
+         - it is used by the category page to easily find all mains associated with category
+         
+  4.  Initial Data Population and Refreshing of Data
+     - The redux store captures the last time the menu data was updated
+     - an invisible widget is placed in strategic places of the app's UI components and continually checks the aforementioned
+        lastRefreshDate flag in the redux store.  
+     - if lastRefreshDate is more than 10 minutes past, data fetch & refresh process is kicked off and lastRefreshDate updated
+
+  5.  React Redux Separation of Container and Presentational Components
+      - Initially I separated all containers (from  associated presentational components) into a separate folder
+      - Decided to combine container components with their associated presentational components in same file.
+      - the initial separated structure provided little actual value; plus the container components are generally tiny.
+      - the combined file structure makes it easier to check what redux store props 
+         are being passed in to presentation component
+         
+         
+*** ==================      Issues:       =========================================================== ****
 
  ** Funtionality Issues
-  - authentication of user's credentials are mocked using local device AsynchStorage
+ 
+ 1) user's last viewed screen isn't stored.  when they leave app and return, they always go through front door.
+ 2) authentication of user's credentials are mocked using local device AsynchStorage
     -- ideally, authentication is done with a legit server authentication process
     -- a mock authentication token is stored in the redux store
     -- password is stored in asynchStorage and is not encrypted
-  - unhandled issue: what happens if the menu is refreshed and user is on an item detail page for an item that is no longer available?
-    - user interface: what will happen to the page
-    - cart data: the cart should be updated to delete the item
-  - need handling for edge cases in case of network problems
-  - components lack default props and prop type checking (TBD)
+    -- multiple people can log into this test app, but there is one cart in redux store that is shared
+       -- i'm ok with this because i don't think this app is meant to be used by multiple users anyway
+ 3) updated server data may cause unhandled issues
+    -- e.g what happens if user is on an item detail page for an item that is no longer available?
+    - user interface: what will happen to that page
+ 4) if data is stale, the checkout process needs a workflow to update the cart and proactively notify user
 
-** Reliability Issues:
-  - need to implement unit tests (TBD)
+** Code Maintenance Issues:
+ 1) need to implement unit tests (TBD)
+ 2) components lack default props and prop type checking (TBD)
 
 ** Clean Code Standards
-  - styling is littered throughout - very messy
+ 1) styling is littered throughout - very messy
     -- consider using styled components to help bring order to chaos
-  - code can be cleaned up such as breaking large functions apart and commenting more
-
--- even though multiple people can log in through this test app, there is only only cart in the redux store that all users share
-  -- i'm ok with this because i don't think this app is meant to be used by multiple users anyway
 
 *** ================== Create React Native App Documentatin: ================== ****
 
