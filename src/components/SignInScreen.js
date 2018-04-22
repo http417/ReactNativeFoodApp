@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { AsyncStorage, Alert } from 'react-native';
 import CredentialsWidget from './widgets/CredentialsWidget';
 import actions from '../store/actions';
+import { APP_STACK } from '../constants/constants';
 
 const SignInScreen = ({ storeAuthToken, navigation }) => {
   function _onSubmit(number, password) {
@@ -10,7 +11,7 @@ const SignInScreen = ({ storeAuthToken, navigation }) => {
       .then((storedPassword) => {
         if (storedPassword === password) {
           storeAuthToken(number);
-          navigation.navigate('AppStack');
+          navigation.navigate(APP_STACK);
         } else {
           Alert.alert("Credentials Failed");
         }

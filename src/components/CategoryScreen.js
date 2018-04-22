@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text, FlatList, TouchableHighlight, StyleSheet } from 'react-native';
+import { ITEM_SCREEN } from '../constants/constants';
 
 const styles = StyleSheet.create({
   catButton: {
@@ -41,7 +42,7 @@ class CategoryScreen extends React.Component {
   }
 
   itemClicked = (itemID, itemName) => {
-    this.props.navigation.navigate('ItemScreen', {
+    this.props.navigation.navigate(ITEM_SCREEN, {
       id: itemID,
       name: itemName,
     });

@@ -2,6 +2,7 @@ import React from 'react';
 import { TouchableHighlight, Text, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../../store/actions';
+import { AUTH_STACK } from '../../constants/constants';
 
 const styles = StyleSheet.create({
   buttonText: {
@@ -19,7 +20,7 @@ const SignOutButton = ({ clearAuthToken, navigation }) => {
   function _signOut() {
     // clear out the user token
     clearAuthToken();
-    navigation.navigate('AuthStack');
+    navigation.navigate(AUTH_STACK);
   }
   return (
     <TouchableHighlight onPress={_signOut}>

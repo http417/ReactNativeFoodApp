@@ -5,6 +5,7 @@ import actions from '../store/actions';
 import SignOutButton from './widgets/SignOutButton';
 import CartWidget from './widgets/CartWidget';
 import { persistor } from '../store/configureStore';
+import { AUTH_STACK } from '../constants/constants';
 
 class AccountScreen extends React.Component {
   static navigationOptions =({ navigation }) => ({
@@ -19,7 +20,7 @@ class AccountScreen extends React.Component {
       persistor.purge().then(() => persistor.flush()),
     )
       .then(() => {
-        this.props.navigation.navigate('AuthStack');
+        this.props.navigation.navigate(AUTH_STACK);
         Alert.alert('Cart and Credential Data Cleared');
       })
       .catch(() => {

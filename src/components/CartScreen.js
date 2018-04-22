@@ -7,6 +7,7 @@ import RefreshMenuWidget from './widgets/RefreshMenuWidget';
 import CartWidget from './widgets/CartWidget';
 import CartTitleWidget from './widgets/CartTitleWidget';
 import CartListItemWidget from './widgets/CartListItemWidget';
+import { CATEGORY_LIST_SCREEN } from '../constants/constants';
 
 const styles = StyleSheet.create({
   footer: {
@@ -66,7 +67,7 @@ class CartScreen extends React.Component {
   }
 
   _goToMenu = () => {
-    this.props.navigation.navigate('CategoryListScreen');
+    this.props.navigation.navigate(CATEGORY_LIST_SCREEN);
   }
 
   _checkout = () => {

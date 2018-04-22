@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Button, Text } from 'react-native';
 import RefreshMenuWidget from './widgets/RefreshMenuWidget';
+import { SIGN_UP_SCREEN, SIGN_IN_SCREEN } from '../constants/constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,10 +35,10 @@ export default ({ navigation }) => (
     </Text>
     <View style={styles.signButtonSection}>
       <View style={styles.signButton}>
-        <Button title="Sign Up" onPress={() => navigation.navigate('SignUpScreen')} />
+        <Button title="Sign Up" onPress={() => navigation.navigate(SIGN_UP_SCREEN)} />
       </View>
       <View style={styles.signButton}>
-        <Button title="Sign In" onPress={() => navigation.navigate('SignInScreen')} />
+        <Button title="Sign In" onPress={() => navigation.navigate(SIGN_IN_SCREEN)} />
       </View>
     </View>
   </View>

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import actions from '../store/actions';
 import dataManager from '../tools/dataFetch';
 import LogoHeader from './widgets/LogoHeader';
+import { CATEGORY_SCREEN } from '../constants/constants';
 
 const styles = StyleSheet.create({
   catButton: {
@@ -27,7 +28,7 @@ class CategoryListScreen extends React.Component {
   });
 
   _itemClicked = (catID, catName) => {
-    this.props.navigation.navigate('CategoryScreen', {
+    this.props.navigation.navigate(CATEGORY_SCREEN, {
       id: catID,
       name: catName,
     });
