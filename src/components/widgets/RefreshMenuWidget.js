@@ -25,7 +25,7 @@ class RefreshServerDataWidget extends React.Component {
           Object.keys(newStoreData.rawCategoryData).length
   )
 
-  _refreshStore() {
+  _refreshStore = () => {
     // console.log('Updating the redux store');
     dataManager.processData
       .then((newStoreData) => {
@@ -42,7 +42,7 @@ class RefreshServerDataWidget extends React.Component {
   }
 
   // if any items are no longer available (after a refresh), remove them from the cart
-  _removeAnyDiscontinuedItems(newStoreData) {
+  _removeAnyDiscontinuedItems = (newStoreData) => {
     const { cart } = this.props; // { {itemID: quantity}, }
     const idsToRemove = []; // store id's of items that should be deleted after processing the data
     Object.keys(cart).forEach((itemId) => {
@@ -55,7 +55,7 @@ class RefreshServerDataWidget extends React.Component {
     });
   }
 
-  render() {
+  render = () => {
     return null;
   }
 }

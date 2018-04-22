@@ -52,7 +52,7 @@ class CartTitleWidget extends React.Component {
     }
   }
 
-  _calculateTotalItems() {
+  _calculateTotalItems = () => {
     let totalItems = 0;
     Object.entries(this.props.cart).forEach(
       ([, quantity]) => {

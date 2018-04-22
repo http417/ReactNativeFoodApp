@@ -81,23 +81,21 @@ class CredentialsWidget extends React.Component {
     this.setState({ submitInProcess: false });
   }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <PhoneInput onNumberChange={this._onPHChange} numberText={this.state.number} />
-        <PasswordInput
-          onPasswordChange={this._onPasswordChange}
-          editable={this.state.number.length === 10}
-          passwordText={this.state.password}
-        />
-        <Button
-          title={this.props.isSigningUp ? "Sign Up" : "Sign In"}
-          disabled={!this.state.submitReady || this.state.submitInProcess}
-          onPress={this._onSubmit}
-        />
-      </View>
-    );
-  }
+  render = () => (
+    <View style={styles.container}>
+      <PhoneInput onNumberChange={this._onPHChange} numberText={this.state.number} />
+      <PasswordInput
+        onPasswordChange={this._onPasswordChange}
+        editable={this.state.number.length === 10}
+        passwordText={this.state.password}
+      />
+      <Button
+        title={this.props.isSigningUp ? "Sign Up" : "Sign In"}
+        disabled={!this.state.submitReady || this.state.submitInProcess}
+        onPress={this._onSubmit}
+      />
+    </View>
+  );
 }
 
 export default CredentialsWidget;
