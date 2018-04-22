@@ -16,17 +16,17 @@ const categoryDetailsReducer = (state = {}, action) => {
 
 
 // { 23523525: [6312361236,2136236,236123612], }
-const categoryToEntreesHashReducer = (state = {}, action) => {
+
+const categoryToMainsHashReducer = (state = {}, action) => {
   switch (action.type) {
     case REFRESH_MENU:
-      return action.categoryToEntreesHash;
+      return action.categoryToMainsHash;
     case PURGE_MENU:
       return {};
     default:
       return state;
   }
 };
-
 
   // { 23523525:
   // {name: 'Chicken Fingers', price: 1299, description: 'battered diabetes sauted with diahrea' },
@@ -61,7 +61,7 @@ const refreshTrackingReducer = (state = initialRefreshTrackingState, action) => 
 };
 
 export default combineReducers({
-  categoryToEntreesHash: categoryToEntreesHashReducer,
+  categoryToMainsHash: categoryToMainsHashReducer,
   mainItemDetails: mainItemDetailsReducer,
   categoryDetails: categoryDetailsReducer,
   refreshTracking: refreshTrackingReducer,

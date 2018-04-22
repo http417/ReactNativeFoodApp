@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Text, StyleSheet, TouchableHighlight, View } from 'react-native';
 import priceConversion from '../../tools/priceConversion';
-import AutoRefreshDataWidget from './AutoRefreshDataWidget';
+import AutoRefreshServerDataWidget from './AutoRefreshServerDataWidget';
 import { CART_SCREEN } from '../../tools/constants';
 
 const styles = StyleSheet.create({
@@ -81,7 +81,7 @@ class CartWidget extends React.Component {
         onPress={this._goToCart}
       >
         <View style={styles.container}>
-          <AutoRefreshDataWidget />
+          <AutoRefreshServerDataWidget />
           <Ionicons name="ios-cart" size={18} />
           <Text style={(darkTheme) ? styles.darkText : styles.text}>
             {this.totalCost ?

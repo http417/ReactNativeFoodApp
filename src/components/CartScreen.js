@@ -3,7 +3,7 @@ import { View, Text, Button, FlatList, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../store/actions';
 import convertToDollars from '../tools/priceConversion';
-import AutoRefreshDataWidget from './widgets/AutoRefreshDataWidget';
+import AutoRefreshServerDataWidget from './widgets/AutoRefreshServerDataWidget';
 import CartWidget from './widgets/CartWidget';
 import CartTitleWidget from './widgets/CartTitleWidget';
 import CartListItemWidget from './widgets/CartListItemWidget';
@@ -81,7 +81,7 @@ class CartScreen extends React.Component {
     const emptyCart = <EmptyCartWidget goToMenu={this._goToMenu} />;
     const filledCart = (
       <View style={{ flex: 1 }}>
-        <AutoRefreshDataWidget cartLastUpdated={this.props.cartLastUpdated} />
+        <AutoRefreshServerDataWidget />
         <FlatList
           data={Object.entries(this.props.cart)}
           renderItem={
