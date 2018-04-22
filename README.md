@@ -188,6 +188,16 @@ https://facebook.github.io/react-native/docs/getting-started.html
     -- if the structure of the redux store doesn't match the server's data, then we could be in for a big surprise
  4) if data is stale, the checkout process needs a workflow to update the cart and proactively notify user
 
+
+** Unhandled Warning Message:
+
+I'm not sure how to resolve this issue at the moment. Still investigating...
+
+` Warning: Can only update a mounted or mounting component. This usually means you called setState, replaceState, or 
+` forceUpdate on an unmounted component. This is a no-op.
+
+` Please check the code for the CartScreen component.
+
 ** Code Maintenance Issues:
  1) need to implement unit tests (TBD)
  2) PropType Checking: for my store data structures e.g. categoryDetails, I use dynamic string keys, and I'm not
