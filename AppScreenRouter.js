@@ -68,7 +68,7 @@ const TabNavigationStack = TabNavigator(
 
 const RootStack = SwitchNavigator(
   { AppOrAuthStackSwitcher, AuthStack, TabNavigationStack },
-  { initialRouteName: 'RootSwitcherScreen' },
+  { initialRouteName: 'AppOrAuthStackSwitcher' },
 );
 
 export default RootStack;
