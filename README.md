@@ -185,8 +185,7 @@ https://facebook.github.io/react-native/docs/getting-started.html
     -- multiple people can log into this test app, but there is one cart in redux store that is shared
        -- i'm ok with this because i don't think this app is meant to be used by multiple users anyway
  3) updated server data may cause unhandled issues
-    -- e.g what happens if user is on an item detail page for an item that is no longer available?
-    - user interface: what will happen to that page
+    -- if the structure of the redux store doesn't match the server's data, then we could be in for a big surprise
  4) if data is stale, the checkout process needs a workflow to update the cart and proactively notify user
 
 ** Code Maintenance Issues:
