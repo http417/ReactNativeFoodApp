@@ -147,10 +147,25 @@ https://facebook.github.io/react-native/docs/getting-started.html
         prop: a redux store flag that tracks last time cart updated
      - Cart widget must call forceUpdate on itself in order to visually update the totals
      
-  2. Authorization Hack
+  2. Authorization Hack:
+     A professional app would authorize against an authorization service on the cloud, so this is a hack for demo purposes.
+     - user's phone number is used as a faux authorization token stored in the redux store,
+       - a user is sign'd in if the store containers this faux auth token
+     - user's account is uniquely identified by their phone number
+     - phone numeer and password credentials pair information is stored using AsyncStorage
   
   3. Food Menu Data Structure Decisions:
-
+     After AWS server data is fetched, it is placed in three main object structures:
+     - categoryDetails: basically the raw category data fetched from server, stripped of categories with 0 associated mains 
+     - menuItemDetails: basically the raw mains item data fetched from server, with just the price, description and name data
+     - categoryToMainsHash: this data structure contains derived data
+         - it is used by the category page to easily find all mains associated with category
+         
+  4.  Initial Data Population and Refreshing of Data
+     - The redux store captures the last time the menu data was updated
+     - an invisible widget is placed in strategic places of the app's UI components and continually checks the aforementioned
+        lastRefreshDate flag in the redux store.  
+     - if lastRefreshDate is more than 10 minutes past, data fetch & refresh process is kicked off and lastRefreshDate updated
 
 *** ==================      Issues:       ================================================================ ****
 
