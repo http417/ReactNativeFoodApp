@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { REFRESH_MENU, UPDATE_REFRESH_TRACKING, PURGE_MENU } from '../../constants/constants';
+import { REFRESH_MENU, UPDATE_REFRESH_TRACKING, PURGE_MENU } from '../../tools/constants';
 
 
 // { 0: {name: 'Meats', id: 'sdsadg' }, }

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ActivityIndicator, StatusBar, View } from 'react-native';
 import RefreshMenuWidget from './widgets/RefreshMenuWidget';
-import { APP_STACK, AUTH_STACK } from '../constants/constants';
+import { APP_STACK, AUTH_STACK } from '../tools/constants';
 
 const RootSwitcherScreen = ({ navigation, authToken }) => {
   // for now, token is valid simply if it exists

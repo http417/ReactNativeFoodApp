@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import actions from '../store/actions';
 import dataManager from '../tools/dataFetch';
 import LogoHeader from './widgets/LogoHeader';
-import { CATEGORY_SCREEN } from '../constants/constants';
+import { CATEGORY_SCREEN } from '../tools/constants';
 
 const styles = StyleSheet.create({
   catButton: {

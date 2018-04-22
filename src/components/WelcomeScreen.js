@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Button, Text } from 'react-native';
 import RefreshMenuWidget from './widgets/RefreshMenuWidget';
-import { SIGN_UP_SCREEN, SIGN_IN_SCREEN } from '../constants/constants';
+import { SIGN_UP_SCREEN, SIGN_IN_SCREEN } from '../tools/constants';
 
 const styles = StyleSheet.create({
   container: {

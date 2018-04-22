@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Text, StyleSheet, TouchableHighlight, View } from 'react-native';
 import priceConversion from '../../tools/priceConversion';
 import RefreshMenuWidget from './RefreshMenuWidget';
-import { CART_SCREEN } from '../../constants/constants';
+import { CART_SCREEN } from '../../tools/constants';
 
 const styles = StyleSheet.create({
   container: {

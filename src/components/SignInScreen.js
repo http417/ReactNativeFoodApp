@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { AsyncStorage, Alert } from 'react-native';
 import CredentialsWidget from './widgets/CredentialsWidget';
 import actions from '../store/actions';
-import { APP_STACK } from '../constants/constants';
+import { APP_STACK } from '../tools/constants';
 
 const SignInScreen = ({ storeAuthToken, navigation }) => {
   function _onSubmit(number, password) {

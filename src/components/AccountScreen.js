@@ -5,7 +5,7 @@ import actions from '../store/actions';
 import SignOutButton from './widgets/SignOutButton';
 import CartWidget from './widgets/CartWidget';
 import { persistor } from '../store/configureStore';
-import { AUTH_STACK } from '../constants/constants';
+import { AUTH_STACK } from '../tools/constants';
 
 class AccountScreen extends React.Component {
   static navigationOptions =({ navigation }) => ({

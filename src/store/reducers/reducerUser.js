@@ -1,6 +1,6 @@
 
 import { combineReducers } from 'redux';
-import { PURGE_CART, ADD_ITEM_TO_CART, REMOVE_ITEM_FROM_CART, UPDATE_USER_PHONE, CLEAR_AUTH_TOKEN, STORE_AUTH_TOKEN } from '../../constants/constants';
+import { PURGE_CART, ADD_ITEM_TO_CART, REMOVE_ITEM_FROM_CART, UPDATE_USER_PHONE, CLEAR_AUTH_TOKEN, STORE_AUTH_TOKEN } from '../../tools/constants';
 
 const phoneReducer = (state = '', action) => {
   switch (action.type) {

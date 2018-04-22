@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableHighlight, Text, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../../store/actions';
-import { AUTH_STACK } from '../../constants/constants';
+import { AUTH_STACK } from '../../tools/constants';
 
 const styles = StyleSheet.create({
   buttonText: {

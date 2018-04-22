@@ -7,7 +7,7 @@ import RefreshMenuWidget from './widgets/RefreshMenuWidget';
 import CartWidget from './widgets/CartWidget';
 import CartTitleWidget from './widgets/CartTitleWidget';
 import CartListItemWidget from './widgets/CartListItemWidget';
-import { CATEGORY_LIST_SCREEN } from '../constants/constants';
+import { CATEGORY_LIST_SCREEN } from '../tools/constants';
 
 const styles = StyleSheet.create({
   footer: {

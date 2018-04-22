@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text, FlatList, TouchableHighlight, StyleSheet } from 'react-native';
-import { ITEM_SCREEN } from '../constants/constants';
+import { ITEM_SCREEN } from '../tools/constants';
 
 const styles = StyleSheet.create({
   catButton: {
