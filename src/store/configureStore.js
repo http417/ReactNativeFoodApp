@@ -31,7 +31,6 @@ const justForShow = () => ({ // eslint-disable-line
   user: {
     authToken: '', // if empty, user is signed out, else they are signed in, (and phone number is token)
     phone: '', // not in use right now
-    cartLastUpdated: '', // used to trigger updates to the cart widget
     cart: {
       'id-k235kj': 3, // { itemId: quantity  } total price and total items are calculated dynamically by the UI
     },

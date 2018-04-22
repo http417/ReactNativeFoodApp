@@ -106,7 +106,6 @@ class CartScreen extends React.Component {
 CartScreen.propTypes = {
   mainItemDetails: PropTypes.object.isRequired,
   cart: PropTypes.object.isRequired,
-  cartLastUpdated: PropTypes.number.isRequired,
   updatedTotals: PropTypes.shape({
     totalItems: PropTypes.number,
     totalCost: PropTypes.number,
@@ -125,7 +124,6 @@ const recalculateCart = (cart, mainItemDetails) => {
 const mapStateToProps = state => ({
   mainItemDetails: state.foodStore.mainItemDetails,
   cart: state.user.cart,
-  cartLastUpdated: state.user.cartLastUpdated,
   updatedTotals: recalculateCart(state.user.cart, state.foodStore.mainItemDetails),
 });
 const mapDispatchToProps = dispatch => ({

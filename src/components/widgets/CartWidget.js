@@ -85,7 +85,6 @@ class CartWidget extends React.Component {
 CartWidget.propTypes = {
   mainItemDetails: PropTypes.object.isRequired,
   cart: PropTypes.object.isRequired,
-  cartLastUpdated: PropTypes.number.isRequired,
   navigation: PropTypes.object.isRequired,
   updatedTotals: PropTypes.shape({
     totalItems: PropTypes.number,
@@ -105,7 +104,6 @@ const recalculateCart = (cart, mainItemDetails) => {
 const mapStateToProps = state => ({
   mainItemDetails: state.foodStore.mainItemDetails,
   cart: state.user.cart,
-  cartLastUpdated: state.user.cartLastUpdated,
   updatedTotals: recalculateCart(state.user.cart, state.foodStore.mainItemDetails),
 });
 

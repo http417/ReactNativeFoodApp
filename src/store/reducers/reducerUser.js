@@ -22,19 +22,6 @@ const authTokenReducer = (state = '', action) => {
   }
 };
 
-const cartLastUpdatedReducer = (state = 0, action) => {
-  switch (action.type) {
-    case PURGE_CART:
-    case ADD_ITEM_TO_CART:
-    case REMOVE_ITEM_FROM_CART: {
-      return Date.now();
-    }
-    default: {
-      return state;
-    }
-  }
-};
-
 const cartReducer = (state = {}, action) => {
   switch (action.type) {
     case PURGE_CART: {
@@ -70,7 +57,6 @@ const cartReducer = (state = {}, action) => {
 };
 
 export default combineReducers({
-  cartLastUpdated: cartLastUpdatedReducer,
   cart: cartReducer,
   authToken: authTokenReducer,
   phone: phoneReducer,
