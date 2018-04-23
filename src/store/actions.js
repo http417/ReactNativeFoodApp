@@ -31,7 +31,7 @@ const addItemToCart = (id, quantity = 1) => ({
   quantity,
 });
 
-const removeItemFromCart = (id, quantity = -1) => ({
+const removeItemFromCart = (id, quantity = 1) => ({
   type: REMOVE_ITEM_FROM_CART,
   id,
   quantity,

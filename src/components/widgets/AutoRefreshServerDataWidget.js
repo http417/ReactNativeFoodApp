@@ -31,7 +31,7 @@ class RefreshServerDataWidget extends React.Component {
   _isNewStoreDataValid = newStoreData => (
     // greedy check, just make sure that there is data
     Object.keys(newStoreData.mainItemDetails).length &&
-          Object.keys(newStoreData.categoryDetails).length
+          newStoreData.categoryDetails.length
   )
 
   _refreshStore = () => {

@@ -11,7 +11,7 @@ const phoneReducer = (state = '', action) => {
   }
 };
 
-const authTokenReducer = (state = '', action) => {
+export const authTokenReducer = (state = '', action) => {
   switch (action.type) {
     case STORE_AUTH_TOKEN:
       return action.token;
@@ -22,7 +22,7 @@ const authTokenReducer = (state = '', action) => {
   }
 };
 
-const cartReducer = (state = {}, action) => {
+export const cartReducer = (state = {}, action) => {
   switch (action.type) {
     case PURGE_CART: {
       return {};
@@ -43,7 +43,7 @@ const cartReducer = (state = {}, action) => {
       // first check to see if item is already in cart, if so then subtract its quantity
       if (action.id in updatedItems) {
         if (updatedItems[action.id] <= action.quantity) {
-          delete updatedItems[action.id]; // or remove completely
+          delete updatedItems[action.id]; // or remove completely;  prevents negative quantity
         } else {
           updatedItems[action.id] -= action.quantity;
         }

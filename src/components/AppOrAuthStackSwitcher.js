@@ -10,7 +10,9 @@ const AppOrAuthStackSwitcher = ({ navigation, authToken }) => {
 
   // navigate to app stack if user token found and validated, else go to Welcome Screen
   navigation.navigate(authTokenValid() ? APP_STACK : AUTH_STACK);
-  return (
+  return null;
+};
+  /* (
     <View style={{
       flex: 1,
       backgroundColor: 'slateblue',
@@ -24,8 +26,9 @@ const AppOrAuthStackSwitcher = ({ navigation, authToken }) => {
     </View>
   );
 };
+*/
 
 // =================== CONNECT TO REDUX STORE ==================== //
+
 export default connect(state => (
   { authToken: state.user.authToken }), null)(AppOrAuthStackSwitcher);
-  
