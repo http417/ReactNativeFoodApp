@@ -23,6 +23,8 @@ On your Phone:
 #### Unit Testing Instructions:
 In the root director of the cloned repository, simply enter into the command line: 'npm test' or 'yarn test'
 
+React Native comes preinstalled with jest testing framework.
+
 ### Installation Instructions (using the mobile Expo App)
 
 In order to run and develop the application on Android Studio or Apple Xcode, you must 'eject' the app.
