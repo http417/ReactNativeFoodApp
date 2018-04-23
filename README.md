@@ -16,9 +16,9 @@ On your Computer:
 On your Phone:
 1) Download the Expo client in the Apple or Android app store.
 2) Once installed, open the Expo Client and click on the 'Scan QR Code' section
-3) The phone's camera shoudl be activated with a augmented targeting square.
+3) The phone's camera should be activated with a augmented targeting square.
 4) Aim the phone at the computer's displayed QR code such that it is within the augmented targeting square.
-5) If done properly, hte Expo app should automatically run the ReactNativeFoodApp
+5) If done properly, the Expo app should automatically run the ReactNativeFoodApp
 
 Unit Testing Instructions:
 In the root director of the cloned repository, simply enter into the command line: 'npm test' or 'yarn test'
