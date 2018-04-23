@@ -196,10 +196,10 @@ https://facebook.github.io/react-native/docs/getting-started.html
 
 I'm not sure how to resolve this issue at the moment. Still investigating...
 
-` Warning: Can only update a mounted or mounting component. This usually means you called setState, replaceState, or 
-` forceUpdate on an unmounted component. This is a no-op.
+  -  Warning: Can only update a mounted or mounting component. This usually means you called setState, replaceState, or 
+  -  forceUpdate on an unmounted component. This is a no-op.
 
-` Please check the code for the CartScreen component.
+  - Please check the code for the CartScreen component.
 
 There are a zillion yellow warnings on my console that I ( and it seems the rest of the react native universe ) cannot seem 
 to figure out how to remove:
