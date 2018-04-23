@@ -1,8 +1,8 @@
-*** ================   Installation Instructions (using the mobile Expo App)   =================== ****
+## Installation Instructions (using the mobile Expo App)
 
 This application is most easily viewed by running it on an Android or iPhone device with the Expo mobile client app connected to the same wireless network as your computer.
 
-Installation Prerequisites:
+#### Installation Prerequisites:
 - Node 
 
 On your Computer:
@@ -20,10 +20,10 @@ On your Phone:
 4) Aim the phone at the computer's displayed QR code such that it is within the augmented targeting square.
 5) If done properly, the Expo app should automatically run the ReactNativeFoodApp
 
-Unit Testing Instructions:
+#### Unit Testing Instructions:
 In the root director of the cloned repository, simply enter into the command line: 'npm test' or 'yarn test'
 
-*** ================   Installation Instructions (using the mobile Expo App)    =================== ****
+### Installation Instructions (using the mobile Expo App)
 
 In order to run and develop the application on Android Studio or Apple Xcode, you must 'eject' the app.
 
@@ -32,7 +32,7 @@ Detailed instructions are provided here:
 https://facebook.github.io/react-native/docs/getting-started.html
 
 
-*** ==================     Assumptions About the Business Requirements     ========================= ****
+##  Assumptions About the Business Requirements 
 
 1.  (Authentication)  I'm assuming that for the purposes of this project, it's ok to create a mock-up of a user authentication and sign-up system.  This app simply stores user phone numbers and (unencrypted) passwords in the devices local storage via React Native's AsyncStorage component.  For a real project, a sophisticated authentication system would be built or a 3rd party tool would be integrated with.  For a phone number username system, a 3rd party provider like Twilio could be useful.
 
@@ -48,7 +48,7 @@ https://facebook.github.io/react-native/docs/getting-started.html
 5. (Cart Logistics) A lot of typical cart features were ommitted in this test app.  For example, there are no tax calculations, delivery charges.
 
 
-*** ==================     Overview of App Structure     ============================================ ****
+## Overview of App Structure
 
 |-App.js
 
@@ -88,15 +88,15 @@ https://facebook.github.io/react-native/docs/getting-started.html
 |-----------/fetchAndProcessServerData, priceConversion, constants
 
 
-*** ==================     App Structure, Detailed Descriptions     ================================ ****
+### App Structure, Detailed Descriptions
  
- Root Folder: (./)
+#### Root Folder: (./)
  1. App.js: HOC's wrap the root AppScreenRouter compoment with a redux Provider (w/store prop) 
    - and a persistance component 
  2. AppScreenRouter: Main App UI navigation contains the various tab and stack navigators 
    - and their associated UI screen components
    
- Component Folder: (./src/components/)
+#### Component Folder: (./src/components/)
  1. Main Navigational Comopnent (RootSwitcherScreen.js)
    - Switches between the stack of user authorization UI screens or the signed-in app UI screens
  
@@ -106,7 +106,7 @@ https://facebook.github.io/react-native/docs/getting-started.html
  3. Application User Interface Menu Screens Components:
    - CategoryListScreen.js, Category.js, Item.js, CartScreen.js
    
- Component Widgets Folder: (./src/components/widgets/)
+#### Component Widgets Folder: (./src/components/widgets/)
  1. CartWidget.js displays dynamically updated cart totals (displayed on right of top header)
  
  2. Cart Screen Widgets: help to compose the Cart Screen page's user interface
@@ -122,7 +122,7 @@ https://facebook.github.io/react-native/docs/getting-started.html
    - This is placed on the welcome screen, initial application screen router, and the cart widgets
      - so essentially whenever the user navigates across the app, the server will pull new data occassionally
      
- Redux Store Folder (./store/)
+#### Redux Store Folder (./store/)
  1. configureStore.js: creates the store object from createStore call and combines the composite reducers into the call
  
  2. reducers (./store/reducers/)
@@ -131,7 +131,7 @@ https://facebook.github.io/react-native/docs/getting-started.html
   
  3. actions.js functions that dispatch relevant actions to the store e.g. REFRESH_MENU, ADD_ITEM_TO_CART, etc.
  
-*** ==================     Key Design Decisions w/Pros & Cons     =================================== ****
+## Key Design Decisions w/Pros & Cons
 
  1. redux store's cart data only includes item id's and per item quantity; 
     - excluded are item price, total price, total quanity, total item count
@@ -144,7 +144,7 @@ https://facebook.github.io/react-native/docs/getting-started.html
           If price information changes, or the menu changes, then the hope is that this decision will help keep 
           the cart price and total information always up-to-date.
           
-    Implementation Details:
+### Implementation Details:
      - the cart widget updates its total information each time cart is updated.  Does this through a passed in
         prop { totalItems, totalCost } that is initialized in and passed from the react redux connect HOC.
      
@@ -176,9 +176,9 @@ https://facebook.github.io/react-native/docs/getting-started.html
          are being passed in to presentation component
          
          
-*** ==================      Issues:       =========================================================== ****
+## Issues:
 
- ** Funtionality Issues
+### Funtionality Issues
  
  1) user's last viewed screen isn't stored.  when they leave app and return, they always go through front door.
  2) authentication of user's credentials are mocked using local device AsynchStorage
@@ -192,7 +192,7 @@ https://facebook.github.io/react-native/docs/getting-started.html
  4) if data is stale, the checkout process needs a workflow to update the cart and proactively notify user
 
 
-** Unhandled Warning Message:
+### Unhandled Warning Message:
 
 I'm not sure how to resolve this issue at the moment. Still investigating...
 
@@ -208,17 +208,17 @@ e.g.: 9:13:10 PM: Warning: componentWillReceiveProps is deprecated and will be r
 Please update the following components: Connect(ItemScreen)
 
 
-** Code Maintenance Issues:
+### Code Maintenance Issues:
  1) need to implement complete set of unit tests.  Currently I just have basic unit tests on the reducers.
  2) PropType Checking: for my store data structures e.g. categoryDetails, I use dynamic string keys, and I'm not
     sure yet how to validate these. 
  3) I"m not sure how the redux-persist library works yet.  TBD
 
-** Clean Code Standards
+### Clean Code Standards
  1) styling is littered throughout - very messy
     -- consider using styled components to help bring order to chaos
 
-*** ================== Create React Native App Documentatin: ================== ****
+*** ================== Create React Native App Documentation: ================== ****
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
