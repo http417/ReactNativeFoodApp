@@ -91,7 +91,7 @@ https://facebook.github.io/react-native/docs/getting-started.html
 *** ==================     App Structure, Detailed Descriptions     ================================ ****
  
  Root Folder: (./)
- 1. App.js: HOC's wrap the add the root AppScreenRouter compoment with redux Provider w/store prop 
+ 1. App.js: HOC's wrap the root AppScreenRouter compoment with a redux Provider (w/store prop) 
    - and a persistance component 
  2. AppScreenRouter: Main App UI navigation contains the various tab and stack navigators 
    - and their associated UI screen components
@@ -212,6 +212,7 @@ Please update the following components: Connect(ItemScreen)
  1) need to implement complete set of unit tests.  Currently I just have basic unit tests on the reducers.
  2) PropType Checking: for my store data structures e.g. categoryDetails, I use dynamic string keys, and I'm not
     sure yet how to validate these. 
+ 3) I"m not sure how the redux-persist library works yet.  TBD
 
 ** Clean Code Standards
  1) styling is littered throughout - very messy
