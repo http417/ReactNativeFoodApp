@@ -218,8 +218,7 @@ Please update the following components: Connect(ItemScreen)
  1) styling is littered throughout - very messy
     -- consider using styled components to help bring order to chaos
 
-*** ================== Create React Native App Documentation: ================== ****
-
+## ================= Create React Native App Documentation =================
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
