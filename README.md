@@ -201,8 +201,15 @@ I'm not sure how to resolve this issue at the moment. Still investigating...
 
 ` Please check the code for the CartScreen component.
 
+There are a zillion yellow warnings on my console that I ( and it seems the rest of the react native universe ) cannot seem 
+to figure out how to remove:
+e.g.: 9:13:10 PM: Warning: componentWillReceiveProps is deprecated and will be removed in the next major version. Use static getDerivedStateFromProps instead.
+
+Please update the following components: Connect(ItemScreen)
+
+
 ** Code Maintenance Issues:
- 1) need to implement unit tests (TBD)
+ 1) need to implement complete set of unit tests.  Currently I just have basic unit tests on the reducers.
  2) PropType Checking: for my store data structures e.g. categoryDetails, I use dynamic string keys, and I'm not
     sure yet how to validate these. 
 
