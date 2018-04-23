@@ -36,12 +36,12 @@ const justForShow = () => ({ // eslint-disable-line
     },
     foodStore: {
       refreshTracking: { lastRefreshDate: '', refreshInProgress: false }, // used to prevent unecessary refreshing
-      categoryDetails: { // basically the a subset of the raw category data fetched from server
-        0: {
+      categoryDetails: [ // basically the a subset of the raw category data fetched from server
+        {
           id: 'id-23kj',
           name: 'Sandwiches',
         },
-      },
+      ],
       // a lookup data structure for category page to easily grab list of associated items
       categorytoMainsHash: {
         'id-23kj': ['235231sdfsdf', '353j32523'],

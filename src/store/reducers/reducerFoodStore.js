@@ -4,7 +4,7 @@ import { REFRESH_MENU, UPDATE_REFRESH_TRACKING, PURGE_MENU } from '../../tools/c
 
 //  [0: {name: 'Meats', id: 'sdsadg', ... }, 1: {name: donuts, id: '23532sdadf', ...}]
 const initialCategoryDetails = [];
-const categoryDetailsReducer = (state = initialCategoryDetails, action) => {
+export const categoryDetailsReducer = (state = initialCategoryDetails, action) => {
   switch (action.type) {
     case REFRESH_MENU:
       return action.categoryDetails;
@@ -18,8 +18,7 @@ const categoryDetailsReducer = (state = initialCategoryDetails, action) => {
 
 // { 23523525: [6312361236,2136236,236123612], }
 const initialHash = {};
-
-const categoryToMainsHashReducer = (state = initialHash, action) => {
+export const categoryToMainsHashReducer = (state = initialHash, action) => {
   switch (action.type) {
     case REFRESH_MENU:
       return action.categoryToMainsHash;
@@ -34,7 +33,7 @@ const categoryToMainsHashReducer = (state = initialHash, action) => {
   // {name: 'Chicken Fingers', price: 1299, description: 'battered diabetes sauted with diahrea' },
   // }
 const initialMainItemDetails = {};
-const mainItemDetailsReducer = (state = initialMainItemDetails, action) => {
+export const mainItemDetailsReducer = (state = initialMainItemDetails, action) => {
   switch (action.type) {
     case REFRESH_MENU:
       return action.mainItemDetails;
@@ -48,7 +47,7 @@ const mainItemDetailsReducer = (state = initialMainItemDetails, action) => {
 const initialRefreshTrackingState = {
   lastRefreshDate: 0, refreshInProgress: false,
 };
-const refreshTrackingReducer = (state = initialRefreshTrackingState, action) => {
+export const refreshTrackingReducer = (state = initialRefreshTrackingState, action) => {
   switch (action.type) {
     case REFRESH_MENU:
       return { lastRefreshDate: Date.now(), refreshInProgress: false };

@@ -16,7 +16,14 @@ export default () => (
 
 console.disableYellowBox = true;
 
+/*
 YellowBox.ignoreWarnings([
-  'Warning: componentWillMount is deprecated',
+  'Warning: componentWillMount is deprecatedå',
   'Warning: componentWillReceiveProps is deprecated',
+  'Warning: componentWillUpdate is deprecated and will be removed in the next major version. Use componentDidUpdate instead. As a temporary workaround, you can rename to UNSAFE_componentWillUpdate.',
+  'Warning: componentWillMount is deprecated and will be removed in the next major version. Use componentDidMount instead. As a temporary workaround, you can rename to UNSAFE_componentWillMount.',
+  'Warning: componentWillMount is deprecated and will be removed in the next major version. Use componentDidMount instead. As a temporary workaround, you can rename to UNSAFE_componentWillMount.',
+  'Warning: componentWillReceiveProps is deprecated and will be removed in the next major version. Use static getDerivedStateFromProps instead.',
 ]);
+*/
+YellowBox.ignoreWarnings(['Warning: ReactNative.createElement']);

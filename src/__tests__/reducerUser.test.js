@@ -11,7 +11,7 @@ const initialCartState = {
 };
 
 
-describe('Redux Store User: Data Reducer:', () => {
+describe('Redux Store: User Data Reducer', () => {
   describe('Cart Reducer', () => {
     it("Purge Cart", () => {
       const state = initialCartState.cart;
