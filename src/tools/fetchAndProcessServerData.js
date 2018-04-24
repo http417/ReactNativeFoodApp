@@ -91,7 +91,6 @@ const fetchAndProcessServerData = new Promise((resolve, reject) => {
       });
     })
     .catch((error) => {
-      console.log('Unable to fetch data from the server: ', error);
       reject(error);
     });
 });

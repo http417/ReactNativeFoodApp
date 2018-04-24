@@ -17,11 +17,11 @@ const createServerRefreshWidget = (WrappedComponent, minMinutesToRefresh) =>
       }
     }
     // refresh data after 10 minutes, but only if it's not already under way
-    _RefreshIfNecessasry = () => {
-      return !this.props.refreshInProgress &&
+    _RefreshIfNecessasry = () => (
+      !this.props.refreshInProgress &&
       this._menuDataStale(minMinutesToRefresh) &&
-      this.props.refreshMenuData(this.props.cart);
-    }
+      this.props.refreshMenuData(this.props.cart)
+    );
 
     _menuDataStale = (maxMinutes) => {
       const lastRefreshDate = this.props.lastRefreshDate || 0;
@@ -44,7 +44,7 @@ const mapDispatchToProps = dispatch => ({
   refreshMenuData: cart => dispatch(actions.refreshMenuData(cart)),
 });
 
-const keepServerDataUpdated = (WrappedComponent, minMinutesToRefresh = 10) =>
+const keepServerDataUpdated = (WrappedComponent, minMinutesToRefresh = 1) =>
   connect(mapStateToProps, mapDispatchToProps)(
     createServerRefreshWidget(WrappedComponent, minMinutesToRefresh));
 
