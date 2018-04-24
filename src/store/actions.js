@@ -35,13 +35,18 @@ const updateRefreshTracking = isInProgress => ({
 
 
 const refreshMenuData = cart => (dispatch) => {
-  const _isNewStoreDataValid = newStoreData => (
+  function _isNewStoreDataValid(newStoreData) {
+    return new Promise((resolve, reject) => {
     // greedy check, just make sure that there is data
-    Object.keys(newStoreData.mainItemDetails).length &&
-          newStoreData.categoryDetails.length
-  );
+      if (Object.keys(newStoreData.mainItemDetails).length && newStoreData.categoryDetails.length) {
+        resolve(newStoreData);
+      } else {
+        reject(Error("Server is not returning any data, so using previous redux store data."));
+      }
+    });
+  }
   // if any items are no longer available (after a refresh), remove them from the cart
-  const _removeDiscontinuedItemsFromCart = (newStoreData) => {
+  function _removeDiscontinuedItemsFromCart(newStoreData) {
     const idsToRemove = [];
     Object.keys(cart).forEach((itemId) => {
       if (!(itemId in newStoreData.mainItemDetails)) {
@@ -51,22 +56,19 @@ const refreshMenuData = cart => (dispatch) => {
     idsToRemove.forEach((itemId) => {
       dispatch(removeItemFromCart(itemId, cart[itemId].quantity));
     });
-  };
+  }
 
   dispatch(updateRefreshTracking(true));
   fetchAndProcessServerData
+    .then(_isNewStoreDataValid)
     .then((newStoreData) => {
-      if (_isNewStoreDataValid(newStoreData)) {
-        _removeDiscontinuedItemsFromCart(newStoreData);
-        dispatch(refreshMenu(newStoreData));
-        dispatch(updateRefreshTracking(false));
-      } else { // don't update the redux store; use old data
-        throw new Error('Server returned missing data, so using old data');
-      }
+      _removeDiscontinuedItemsFromCart(newStoreData);
+      dispatch(refreshMenu(newStoreData));
+      dispatch(updateRefreshTracking(false));
     })
     .catch((error) => {
       console.log('Unable to refresh store data: ', error);
-      this.props.updateRefreshTracking(false);
+      dispatch(updateRefreshTracking(false));
     });
 };
 
