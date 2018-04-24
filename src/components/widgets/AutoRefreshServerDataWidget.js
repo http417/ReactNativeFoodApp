@@ -66,7 +66,8 @@ class RefreshServerDataWidget extends React.Component {
   }
 
   render = () => {
-    return null;
+    const children = this.props.children;
+    return children ? children : null;
   }
 }
 
