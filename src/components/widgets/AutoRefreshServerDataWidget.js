@@ -44,7 +44,7 @@ const mapDispatchToProps = dispatch => ({
   refreshMenuData: cart => dispatch(actions.refreshMenuData(cart)),
 });
 
-const keepServerDataUpdated = (WrappedComponent, minMinutesToRefresh = 1) =>
+const keepServerDataUpdated = (WrappedComponent, minMinutesToRefresh = 10) =>
   connect(mapStateToProps, mapDispatchToProps)(
     createServerRefreshWidget(WrappedComponent, minMinutesToRefresh));
 
