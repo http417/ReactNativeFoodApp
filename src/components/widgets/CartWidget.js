@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Text, StyleSheet, TouchableHighlight, View } from 'react-native';
 import priceConversion from '../../tools/priceConversion';
-import AutoRefreshServerDataWidget from './AutoRefreshServerDataWidget';
+import keepServerDataUpdated from './AutoRefreshServerDataWidget';
 import { CART_SCREEN } from '../../tools/constants';
 
 const styles = StyleSheet.create({
@@ -43,10 +43,8 @@ const styles = StyleSheet.create({
 });
 
 class CartWidget extends React.Component {
-  // statically declare this function so that the cart screen can use it's logic
   static calculateCartQuantityCost = (cart, mainItemDetails) => {
-    let totalItems = 0;
-    let totalCost = 0;
+    let [totalItems, totalCost] = [0, 0];
     Object.entries(cart).forEach(
       ([itemId, quantity]) => {
         totalItems += quantity;
@@ -54,7 +52,7 @@ class CartWidget extends React.Component {
       },
     );
     return [totalItems, totalCost];
-  }
+  };
 
   _goToCart = () => {
     this.props.navigation.navigate(CART_SCREEN);
@@ -69,7 +67,6 @@ class CartWidget extends React.Component {
         onPress={this._goToCart}
       >
         <View style={styles.container}>
-          <AutoRefreshServerDataWidget />
           <Ionicons name="ios-cart" size={18} />
           <Text style={(darkTheme) ? styles.darkText : styles.text}>
             {this.props.updatedTotals.totalCost ?
@@ -106,5 +103,13 @@ const mapStateToProps = state => ({
   cart: state.user.cart,
   updatedTotals: recalculateCart(state.user.cart, state.foodStore.mainItemDetails),
 });
+const ConnectedComponent = keepServerDataUpdated(connect(mapStateToProps, null)(CartWidget));
 
-export default connect(mapStateToProps, null)(CartWidget);
+// must explicitly expose the wrapped component's static function via this proxy
+Object.assign(ConnectedComponent, {
+  // statically declare this function so that the cart screen can use it's logic
+  calculateCartQuantityCost: CartWidget.calculateCartQuantityCost,
+});
+
+export default ConnectedComponent;
+

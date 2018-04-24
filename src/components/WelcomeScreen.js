@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Button, Text } from 'react-native';
 import { SIGN_UP_SCREEN, SIGN_IN_SCREEN } from '../tools/constants';
-import AutoRefreshServerDataWidget from './widgets/AutoRefreshServerDataWidget';
+import keepServerDataUpdated from './widgets/AutoRefreshServerDataWidget';
 
 
 const styles = StyleSheet.create({
@@ -30,9 +30,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ({ navigation }) => (
+const WelcomeScreen = ({ navigation }) => (
   <View style={styles.container}>
-    <AutoRefreshServerDataWidget />
     <Text style={styles.title}>
       Hungry?
     </Text>
@@ -46,3 +45,5 @@ export default ({ navigation }) => (
     </View>
   </View>
 );
+
+export default keepServerDataUpdated(WelcomeScreen);

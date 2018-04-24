@@ -1,4 +1,5 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
@@ -16,7 +17,7 @@ const myPersistReducer = () => persistReducer(persistConfig, combineReducers({
   foodStore: reducerFoodStore,
 }));
 
-export const store = createStore(myPersistReducer());
+export const store = createStore(myPersistReducer(), applyMiddleware(thunk));
 export const persistor = persistStore(store);
 
 
@@ -32,7 +33,10 @@ const justForShow = () => ({ // eslint-disable-line
     authToken: '', // if empty, user is signed out, else they are signed in, (and phone number is token)
     phone: '', // not in use right now
     cart: {
-      'id-k235kj': 3, // { itemId: quantity  } total price and total items are calculated dynamically by the UI
+      calculatedTotals: [5, 21.99],
+      items: {
+        'id-k235kj': 3, // { itemId: quantity  } total price and total items are calculated dynamically by the UI
+      },
     },
     foodStore: {
       refreshTracking: { lastRefreshDate: '', refreshInProgress: false }, // used to prevent unecessary refreshing

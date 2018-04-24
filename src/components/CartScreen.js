@@ -4,9 +4,8 @@ import { View, Text, Button, FlatList, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../store/actions';
 import convertToDollars from '../tools/priceConversion';
-import AutoRefreshServerDataWidget from './widgets/AutoRefreshServerDataWidget';
+import keepServerDataUpdated from './widgets/AutoRefreshServerDataWidget';
 import CartWidget from './widgets/CartWidget';
-import CartTitleWidget from './widgets/CartTitleWidget';
 import CartListItemWidget from './widgets/CartListItemWidget';
 import EmptyCartWidget from './widgets/EmptyCartWidget';
 import { CATEGORY_LIST_SCREEN } from '../tools/constants';
@@ -30,9 +29,6 @@ const styles = StyleSheet.create({
 });
 
 class CartScreen extends React.Component {
-  static navigationOptions = () => ({
-    header: <CartTitleWidget />,
-  });
 
   constructor(props) {
     super(props);
@@ -71,7 +67,6 @@ class CartScreen extends React.Component {
     const emptyCart = <EmptyCartWidget goToMenu={this._goToMenu} />;
     const filledCart = (
       <View style={{ flex: 1 }}>
-        <AutoRefreshServerDataWidget />
         <FlatList
           data={Object.entries(this.props.cart)}
           renderItem={
@@ -132,5 +127,5 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CartScreen);
+export default keepServerDataUpdated(connect(mapStateToProps, mapDispatchToProps)(CartScreen));
 

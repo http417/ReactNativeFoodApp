@@ -12,6 +12,7 @@ import AppOrAuthStackSwitcher from './src/components/AppOrAuthStackSwitcher';
 import WelcomeScreen from './src/components/WelcomeScreen';
 import CartWidget from './src/components/widgets/CartWidget';
 import LogoHeader from './src/components/widgets/LogoHeader';
+import CartTitleWidget from './src/components/widgets/CartTitleWidget';
 
 const AuthStack = StackNavigator(
   { WelcomeScreen, SignInScreen, SignUpScreen },
@@ -31,7 +32,15 @@ const MenuStack = StackNavigator(
 );
 
 const AppStack = StackNavigator(
-  { MenuStack, CartScreen },
+  {
+    MenuStack,
+    CartScreen: {
+      screen: CartScreen,
+      navigationOptions: {
+        header: <CartTitleWidget />,
+      },
+    },
+  },
   { initialRouteName: 'MenuStack', navigationOptions: { header: null, tabBarLabel: 'Menu' } },
 );
 

@@ -1,8 +1,5 @@
-import React from 'react';
 import { connect } from 'react-redux';
-import { ActivityIndicator, StatusBar, View } from 'react-native';
 import { APP_STACK, AUTH_STACK } from '../tools/constants';
-import AutoRefreshServerDataWidget from './widgets/AutoRefreshServerDataWidget';
 
 const AppOrAuthStackSwitcher = ({ navigation, authToken }) => {
   // for now, token is valid simply if it exists
