@@ -60,7 +60,7 @@ https://facebook.github.io/react-native/docs/getting-started.html
 
 |-----/components/
 
-|----------------/ RootSwitcherScreen.js
+|----------------/ AppOrAuthSwitcher.js
 
 |----------------/ (UI App Components) CategoryListScreen,CategoryScreen ItemScreen, CartScreen
 
@@ -99,7 +99,7 @@ https://facebook.github.io/react-native/docs/getting-started.html
    - and their associated UI screen components
    
 #### Component Folder: (./src/components/)
- 1. Main Navigational Comopnent (RootSwitcherScreen.js)
+ 1. Main Navigational Comopnent (AppOrAuthSwitcher.js)
    - Switches between the stack of user authorization UI screens or the signed-in app UI screens
  
  2. Authorization User Interface Screen Components:
@@ -166,8 +166,9 @@ https://facebook.github.io/react-native/docs/getting-started.html
          
   4.  Initial Data Population and Refreshing of Data
      - The redux store captures the last time the menu data was updated
-     - an invisible widget is placed in strategic places of the app's UI components and continually checks the aforementioned
-        lastRefreshDate flag in the redux store.  
+     - a decorator widget (AutoRefreshServerDataWidget) wraps certain app's UI components (e.g. WelcomeScreen)
+        - it adds functionality to continually checks the aforementioned lastRefreshDate flag in the redux store.
+          and kick off a refresh of data if that data is stale.
      - if lastRefreshDate is more than 10 minutes past, data fetch & refresh process is kicked off and lastRefreshDate updated
 
   5.  React Redux Separation of Container and Presentational Components
