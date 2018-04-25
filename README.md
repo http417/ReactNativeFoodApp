@@ -188,7 +188,10 @@ https://facebook.github.io/react-native/docs/getting-started.html
  3) updated server data may cause unhandled issues
     -- if the structure of the redux store doesn't match the server's data, then we could be in for a big surprise
  4) if data is stale, the checkout process needs a workflow to update the cart and proactively notify user
-
+ 5) If the data server is not responding when user first accesses the app, then the storefront should probably not accessed.
+    -- would probably be good to have a loading screen that waits until data is successfully fetched, or times out, before
+     navigating user to the storefront.
+    -- in case of time-out user can be led to a descriptive error/oops page.
 
 ### Unhandled Warning Message:
 
