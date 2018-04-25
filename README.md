@@ -60,8 +60,6 @@ https://facebook.github.io/react-native/docs/getting-started.html
 
 |-----/components/
 
-|----------------/ AppOrAuthSwitcher.js
-
 |----------------/ (UI App Components) CategoryListScreen,CategoryScreen ItemScreen, CartScreen
 
 |----------------/ (UI Authorization Components) Welcome Screen, SignInScreen, SignUpScreen, LoadingScreen
@@ -99,13 +97,10 @@ https://facebook.github.io/react-native/docs/getting-started.html
    - and their associated UI screen components
    
 #### Component Folder: (./src/components/)
- 1. Main Navigational Comopnent (AppOrAuthSwitcher.js)
-   - Switches between the stack of user authorization UI screens or the signed-in app UI screens
- 
- 2. Authorization User Interface Screen Components:
+ 1. Authorization User Interface Screen Components:
    - WelcomeScreen.js, SignInScreen.js, SignUpScreen.js: self-explanatory
  
- 3. Application User Interface Menu Screens Components:
+ 2. Application User Interface Menu Screens Components:
    - CategoryListScreen.js, Category.js, Item.js, CartScreen.js
    
 #### Component Widgets Folder: (./src/components/widgets/)
