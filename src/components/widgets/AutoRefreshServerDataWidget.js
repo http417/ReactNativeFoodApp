@@ -44,6 +44,11 @@ const mapDispatchToProps = dispatch => ({
   refreshMenuData: cart => dispatch(actions.refreshMenuData(cart)),
 });
 
+// note that the drawback of using this decorator appraoach is that
+// the static properties of any decorated components will no longer be exposed automatically
+// you will have to create a manual proxy property.
+// see CartWidget.js as an example
+
 const keepServerDataUpdated = (WrappedComponent, minMinutesToRefresh = 10) =>
   connect(mapStateToProps, mapDispatchToProps)(
     createServerRefreshWidget(WrappedComponent, minMinutesToRefresh));

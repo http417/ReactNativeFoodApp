@@ -103,7 +103,7 @@ const mapStateToProps = state => ({
   cart: state.user.cart,
   updatedTotals: recalculateCart(state.user.cart, state.foodStore.mainItemDetails),
 });
-const ConnectedComponent = keepServerDataUpdated(connect(mapStateToProps, null)(CartWidget));
+const ConnectedComponent = connect(mapStateToProps, null)(keepServerDataUpdated(CartWidget));
 
 // must explicitly expose the wrapped component's static function via this proxy
 Object.assign(ConnectedComponent, {

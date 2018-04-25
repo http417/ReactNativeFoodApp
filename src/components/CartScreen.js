@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
 });
 
 class CartScreen extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -127,5 +126,5 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default keepServerDataUpdated(connect(mapStateToProps, mapDispatchToProps)(CartScreen));
+export default connect(mapStateToProps, mapDispatchToProps)(keepServerDataUpdated(CartScreen));
 

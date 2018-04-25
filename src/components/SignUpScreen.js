@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { AsyncStorage, Alert } from 'react-native';
 import actions from '../store/actions';
 import CredentialsWidget from './widgets/CredentialsWidget';
-import { APP_STACK } from '../tools/constants';
+import { TAB_NAVIGATION_STACK } from '../tools/constants';
 
 const SignUpScreen = ({ storeAuthToken, navigation }) => {
   function _onSubmit(number, password) {
@@ -16,7 +16,7 @@ const SignUpScreen = ({ storeAuthToken, navigation }) => {
         } else { // continue with validation
           AsyncStorage.setItem(`ACCOUNT:${number}`, password);
           storeAuthToken(number);
-          navigation.navigate(APP_STACK);
+          navigation.navigate(TAB_NAVIGATION_STACK);
         }
       })
       .catch((error) => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { StackNavigator, SwitchNavigator, TabBarBottom, TabNavigator } from 'react-navigation';
 import CategoryListScreen from './src/components/CategoryListScreen';
@@ -8,7 +9,6 @@ import ItemScreen from './src/components/ItemScreen';
 import SignInScreen from './src/components/SignInScreen';
 import SignUpScreen from './src/components/SignUpScreen';
 import AccountScreen from './src/components/AccountScreen';
-import AppOrAuthStackSwitcher from './src/components/AppOrAuthStackSwitcher';
 import WelcomeScreen from './src/components/WelcomeScreen';
 import CartWidget from './src/components/widgets/CartWidget';
 import LogoHeader from './src/components/widgets/LogoHeader';
@@ -75,9 +75,15 @@ const TabNavigationStack = TabNavigator(
     }),
   });
 
-const RootStack = SwitchNavigator(
-  { AppOrAuthStackSwitcher, AuthStack, TabNavigationStack },
-  { initialRouteName: 'AppOrAuthStackSwitcher' },
+const chooseRootStack = authTokenExists => SwitchNavigator(
+  { AuthStack, TabNavigationStack },
+  { initialRouteName: authTokenExists ? 'TabNavigationStack' : 'AuthStack' },
 );
 
-export default RootStack;
+const RootStackSwitcher = ({ authTokenExists }) => {
+  const RootNode = chooseRootStack(authTokenExists);
+  return <RootNode />;
+};
+
+export default connect(state => (
+  { authTokenExists: state.user.authToken }), null)(RootStackSwitcher);

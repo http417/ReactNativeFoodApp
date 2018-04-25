@@ -9,10 +9,10 @@ export const STORE_AUTH_TOKEN = "STORE_AUTH_TOKEN";
 export const UPDATE_USER_PHONE = "UPDATE_USER_PHONE";
 
 export const AUTH_STACK = "AuthStack";
+export const TAB_NAVIGATION_STACK = "TabNavigationStack";
 export const MENU_STACK = "MenuStack";
 export const APP_STACK = "AppStack";
 export const SETTINGS_STACK = "SettingsStack";
-export const TAB_NAVIGATION_STACK = "TabNavigationStack";
 export const ROOT_STACK = "RootStack";
 
 export const CATEGORY_SCREEN = "CategoryScreen";
