@@ -65,10 +65,10 @@ const helperFNs = {
       return [jsonData.digestData.categories, jsonData.digestData.mains];
     }
 
-    let response = await fetch(URL);
-    response = await _validateResponse(response);
-    response = await _readJSON(response);
-    return await _pullOutRelevantData(response)
+    return fetch(URL)
+    .then(_validateResponse)
+    .then(_readJSON)
+    .then(_pullOutRelevantData);
   },
 };
 
