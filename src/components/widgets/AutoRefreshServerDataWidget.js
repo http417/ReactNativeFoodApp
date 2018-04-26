@@ -4,7 +4,7 @@ import actions from '../../store/actions';
 
 // invisible widget that automatically refreshes menu every 10 minutes
 // place this all across the site e.g. cart widget, cart page, landing page,etc.
-const createServerRefreshWidget = (WrappedComponent, minMinutesToRefresh) =>
+const createServerRefreshWidget = (WrappedComponent, minMinutesToRefresh=10) =>
   (class extends React.Component {
     constructor(props) {
       super(props); // need to pass these props down to the wrapped compoment
