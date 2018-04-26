@@ -53,21 +53,22 @@ const helperFNs = {
       categoryData => (categoryData.id in categoryToMainsHash),
     ),
 
-  fetchServerData: (URL) => {
-    function validateResponse(response) {
+  fetchServerData: async (URL) => {
+    function _validateResponse(response) {
       if (!response.ok) {
         throw Error(response.statusText);
       }
       return response;
     }
-    function readJSON(response) { return response.json(); }
-    function pullOutRelevantData(jsonData) {
+    function _readJSON(response) { return response.json(); }
+    function _pullOutRelevantData(jsonData) {
       return [jsonData.digestData.categories, jsonData.digestData.mains];
     }
-    return fetch(URL)
-      .then(validateResponse)
-      .then(readJSON)
-      .then(pullOutRelevantData);
+
+    let response = await fetch(URL);
+    response = await _validateResponse(response);
+    response = await _readJSON(response);
+    return await _pullOutRelevantData(response)
   },
 };
 
@@ -77,22 +78,15 @@ const helperFNs = {
 
 // ******************************************************************************************* //
 
-const fetchAndProcessServerData = new Promise((resolve, reject) => {
-  helperFNs.fetchServerData(helperFNs.dataURL)
-    .then(([fetchedCategoryData, fetchedMainsData]) => {
-      const [categoryToMainsHash = {}, mainItemDetails = {}] =
-        helperFNs.buildCategoryToMainsHash(fetchedMainsData);
-      const categoryDetails =
-        helperFNs.filterOutEmptyCategories(fetchedCategoryData, categoryToMainsHash);
-      resolve({
-        categoryDetails,
-        mainItemDetails,
-        categoryToMainsHash,
-      });
-    })
-    .catch((error) => {
-      reject(error);
-    });
-});
+const fetchAndProcessServerData = async () => {
+  const [fetchedCategoryData, fetchedMainsData] = await helperFNs.fetchServerData(helperFNs.dataURL);
+  const [categoryToMainsHash = {}, mainItemDetails = {}] = await helperFNs.buildCategoryToMainsHash(fetchedMainsData);
+  const categoryDetails = helperFNs.filterOutEmptyCategories(fetchedCategoryData, categoryToMainsHash)
+  return {
+    categoryDetails,
+    mainItemDetails,
+    categoryToMainsHash,
+  };
+}
 
 export default fetchAndProcessServerData;

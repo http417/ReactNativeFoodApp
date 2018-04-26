@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { REFRESH_MENU, UPDATE_REFRESH_TRACKING, PURGE_MENU } from '../../tools/constants';
+import { REFRESH_MENU, UPDATE_DATA_FETCH_TRACKING, PURGE_MENU } from '../../tools/constants';
 
 
 //  [0: {name: 'Meats', id: 'sdsadg', ... }, 1: {name: donuts, id: '23532sdadf', ...}]
@@ -44,17 +44,17 @@ export const mainItemDetailsReducer = (state = initialMainItemDetails, action) =
   }
 };
 
-const initialRefreshTrackingState = {
-  lastRefreshDate: 0, refreshInProgress: false,
+const initialDataFetchTrackingState = {
+  lastDataFetchDate: 0, dataFetchInProgress: false,
 };
-export const refreshTrackingReducer = (state = initialRefreshTrackingState, action) => {
+export const dataFetchTrackingReducer = (state = initialDataFetchTrackingState, action) => {
   switch (action.type) {
     case REFRESH_MENU:
-      return { lastRefreshDate: Date.now(), refreshInProgress: false };
+      return { lastDataFetchDate: Date.now(), dataFetchInProgress: state.dataFetchInProgress }
     case PURGE_MENU:
-      return initialRefreshTrackingState;
-    case UPDATE_REFRESH_TRACKING:
-      return { ...state, refreshInProgress: action.isInProgress };
+      return initialDataFetchTrackingState;
+    case UPDATE_DATA_FETCH_TRACKING:
+      return { ...state, dataFetchInProgress: action.isInProgress };
     default:
       return state;
   }
@@ -64,5 +64,5 @@ export default combineReducers({
   categoryToMainsHash: categoryToMainsHashReducer,
   mainItemDetails: mainItemDetailsReducer,
   categoryDetails: categoryDetailsReducer,
-  refreshTracking: refreshTrackingReducer,
+  dataFetchTracking: dataFetchTrackingReducer,
 });

@@ -8,26 +8,26 @@ const createServerRefreshWidget = (WrappedComponent, minMinutesToRefresh=10) =>
   (class extends React.Component {
     constructor(props) {
       super(props); // need to pass these props down to the wrapped compoment
-      this._RefreshIfNecessasry();
+      this._fetchNewDataIfNecessasry();
     }
 
     componentDidUpdate = (prevProps) => {
-      if (prevProps.lastRefreshDate !== this.props.lastRefreshDate) {
-        this._RefreshIfNecessasry();
+      if (prevProps.lastDataFetchDate !== this.props.lastDataFetchDate) {
+        this._fetchNewDataIfNecessasry();
       }
     }
     // refresh data after 10 minutes, but only if it's not already under way
-    _RefreshIfNecessasry = () => (
-      !this.props.refreshInProgress &&
+    _fetchNewDataIfNecessasry = () => (
+     !this.props.dataFetchInProgress &&
       this._menuDataStale(minMinutesToRefresh) &&
-      this.props.refreshMenuData(this.props.cart)
+      this.props.fetchNewMenuData(this.props.cart)
     );
 
-    _menuDataStale = (maxMinutes) => {
-      const lastRefreshDate = this.props.lastRefreshDate || 0;
-      const minutesSinceLastRefresh =
-        Math.floor(((Math.abs(Date.now() - lastRefreshDate)) / 1000) / 60);
-      return (minutesSinceLastRefresh > maxMinutes);
+    _menuDataStale = (minMinutes) => {
+      const lastDataFetchDate = this.props.lastDataFetchDate || 0;
+      const minutesSinceLastDataFetch =
+        Math.floor(((Math.abs(Date.now() - lastDataFetchDate)) / 1000) / 60);
+      return (minutesSinceLastDataFetch > minMinutes);
     }
 
     render = () => <WrappedComponent {...this.props} />
@@ -35,13 +35,13 @@ const createServerRefreshWidget = (WrappedComponent, minMinutesToRefresh=10) =>
 
 // =================== CONNECT TO REDUX STORE ==================== //
 const mapStateToProps = state => ({
-  refreshInProgress: state.foodStore.refreshTracking.refreshInProgress,
-  lastRefreshDate: state.foodStore.refreshTracking.lastRefreshDate,
+  dataFetchInProgress: state.foodStore.dataFetchTracking.dataFetchInProgress,
+  lastDataFetchDate: state.foodStore.dataFetchTracking.lastDataFetchDate,
   cart: state.user.cart,
 });
 
 const mapDispatchToProps = dispatch => ({
-  refreshMenuData: cart => dispatch(actions.refreshMenuData(cart)),
+  fetchNewMenuData: cart => dispatch(actions.fetchNewMenuData(cart)),
 });
 
 // note that the drawback of using this decorator appraoach is that

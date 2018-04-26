@@ -1,4 +1,4 @@
-import { PURGE_CART, PURGE_MENU, REFRESH_MENU, UPDATE_REFRESH_TRACKING, ADD_ITEM_TO_CART, REMOVE_ITEM_FROM_CART, CLEAR_AUTH_TOKEN, STORE_AUTH_TOKEN, UPDATE_USER_PHONE } from '../tools/constants';
+import { PURGE_CART, PURGE_MENU, REFRESH_MENU, UPDATE_DATA_FETCH_TRACKING, ADD_ITEM_TO_CART, REMOVE_ITEM_FROM_CART, CLEAR_AUTH_TOKEN, STORE_AUTH_TOKEN, UPDATE_USER_PHONE } from '../tools/constants';
 import fetchAndProcessServerData from '../tools/fetchAndProcessServerData';
 
 const addItemToCart = (id, quantity = 1) => ({
@@ -28,18 +28,18 @@ const refreshMenu = newMenuData => ({
   categoryToMainsHash: newMenuData.categoryToMainsHash,
 });
 
-const updateRefreshTracking = isInProgress => ({
-  type: UPDATE_REFRESH_TRACKING,
+const updateDataFetchTracking = isInProgress => ({
+  type: UPDATE_DATA_FETCH_TRACKING,
   isInProgress,
 });
 
 
-const refreshMenuData = cart => (dispatch) => {
+const fetchNewMenuData = cart => async (dispatch) => {
   function _isNewStoreDataValid(newStoreData) {
     return new Promise((resolve, reject) => {
     // greedy check, just make sure that there is data
       if (Object.keys(newStoreData.mainItemDetails).length && newStoreData.categoryDetails.length) {
-        resolve(newStoreData);
+        resolve(true);
       } else {
         reject(Error("Server is not returning any data, so using previous redux store data."));
       }
@@ -57,19 +57,22 @@ const refreshMenuData = cart => (dispatch) => {
       dispatch(removeItemFromCart(itemId, cart[itemId].quantity));
     });
   }
-
-  dispatch(updateRefreshTracking(true));
-  fetchAndProcessServerData
-    .then(_isNewStoreDataValid)
-    .then((newStoreData) => {
-      _removeDiscontinuedItemsFromCart(newStoreData);
-      dispatch(refreshMenu(newStoreData));
-      dispatch(updateRefreshTracking(false));
-    })
-    .catch((error) => {
-      console.log('Unable to refresh store data: ', error);
-      dispatch(updateRefreshTracking(false));
-    });
+  dispatch(updateDataFetchTracking(true));
+  try {
+    const newStoreData = await fetchAndProcessServerData();
+    await _isNewStoreDataValid(newStoreData);
+    await Promise.all(
+      [
+        _removeDiscontinuedItemsFromCart(newStoreData),
+        dispatch(refreshMenu(newStoreData))
+      ]
+    );
+    dispatch(updateDataFetchTracking(false));
+  }
+  catch(error) {
+    console.log('Unable to refresh store data: ', error);
+    dispatch(updateDataFetchTracking(false));
+  }
 };
 
 const updateUserPhone = number => ({
@@ -87,7 +90,7 @@ const storeAuthToken = token => ({
 });
 
 export default {
-  refreshMenuData,
+  fetchNewMenuData,
   addItemToCart,
   removeItemFromCart,
   updateUserPhone,
