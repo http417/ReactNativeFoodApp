@@ -2,13 +2,13 @@ import {
   categoryDetailsReducer,
   categoryToMainsHashReducer,
   mainItemDetailsReducer,
-  refreshTrackingReducer,
+  dataFetchTrackingReducer,
 } from '../store/reducers/reducerFoodStore';
 
-import { PURGE_MENU, REFRESH_MENU, UPDATE_REFRESH_TRACKING } from '../tools/constants';
+import { PURGE_MENU, REFRESH_MENU, UPDATE_DATA_FETCH_TRACKING } from '../tools/constants';
 
 const initialFoodStoreState = {
-  refreshTracking: { lastRefreshDate: 123123123, refreshInProgress: false },
+  dataFetchTracking: { lastDataFetchDate: 123123123, dataFetchInProgress: false },
   categoryDetails: [
     {
       id: 'catId:aaa',
@@ -114,35 +114,35 @@ describe('Redux Store: Food Menu Reducer', () => {
     });
   });
 
-  describe('refreshTrackingReducer', () => {
+  describe('dataFetchTrackingReducer', () => {
     it("Purge Menu", () => {
-      const state = initialFoodStoreState.refreshTracking;
+      const state = initialFoodStoreState.dataFetchTracking;
       const action = {
         type: PURGE_MENU,
       };
-      const results = refreshTrackingReducer(state, action);
+      const results = dataFetchTrackingReducer(state, action);
       expect(results).toEqual({
-        lastRefreshDate: 0, refreshInProgress: false,
+        lastDataFetchDate: 0, dataFetchInProgress: false,
       });
     });
 
     it("Refresh Menu", () => {
-      const state = initialFoodStoreState.refreshTracking;
+      const state = initialFoodStoreState.dataFetchTracking;
       const action = {
         type: REFRESH_MENU,
       };
-      const results = refreshTrackingReducer(state, action);
-      expect(results.refreshInProgress).toEqual(false);
+      const results = dataFetchTrackingReducer(state, action);
+      expect(results.dataFetchInProgress).toEqual(false);
     });
 
     it("set progress flag on", () => {
-      const state = initialFoodStoreState.refreshTracking;
+      const state = initialFoodStoreState.dataFetchTracking;
       const action = {
-        type: UPDATE_REFRESH_TRACKING,
+        type: UPDATE_DATA_FETCH_TRACKING,
         isInProgress: true,
       };
-      const results = refreshTrackingReducer(state, action);
-      expect(results.refreshInProgress).toEqual(true);
+      const results = dataFetchTrackingReducer(state, action);
+      expect(results.dataFetchInProgress).toEqual(true);
     });
   });
 });

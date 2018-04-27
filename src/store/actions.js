@@ -35,15 +35,13 @@ const updateDataFetchTracking = isInProgress => ({
 
 
 const fetchNewMenuData = cart => async (dispatch) => {
+  // greedy check, just make sure that there is data
   function _isNewStoreDataValid(newStoreData) {
-    return new Promise((resolve, reject) => {
-    // greedy check, just make sure that there is data
       if (Object.keys(newStoreData.mainItemDetails).length && newStoreData.categoryDetails.length) {
-        resolve(true);
+        return true;
       } else {
         reject(Error("Server is not returning any data, so using previous redux store data."));
       }
-    });
   }
   // if any items are no longer available (after a refresh), remove them from the cart
   function _removeDiscontinuedItemsFromCart(newStoreData) {
@@ -53,9 +51,12 @@ const fetchNewMenuData = cart => async (dispatch) => {
         idsToRemove.push(itemId);
       }
     });
+    console.log('remove discontinued items: ', idsToRemove);
     idsToRemove.forEach((itemId) => {
-      dispatch(removeItemFromCart(itemId, cart[itemId].quantity));
+      console.log('remove item: ', itemId, ' of quantity: ',cart[itemId]);
+      dispatch(removeItemFromCart(itemId, cart[itemId]));
     });
+    
   }
   dispatch(updateDataFetchTracking(true));
   try {

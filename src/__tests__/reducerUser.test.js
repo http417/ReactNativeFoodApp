@@ -60,6 +60,18 @@ describe('Redux Store: User Data Reducer', () => {
       expect(results).toEqual({
       });
     });
+  it("Remove Excessive Quantity of Item From Cart", () => {
+      const state = initialCartState.cart;
+      const action = {
+        type: REMOVE_ITEM_FROM_CART,
+        quantity: 12,
+        id: 'aaa',
+      };
+      const results = cartReducer(state, action);
+      expect(results).toEqual({
+      });
+    });
+
   });
 
   describe('Authentication Token', () => {

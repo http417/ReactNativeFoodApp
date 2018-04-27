@@ -22,6 +22,8 @@ export const authTokenReducer = (state = '', action) => {
   }
 };
 
+
+
 export const cartReducer = (state = {}, action) => {
   switch (action.type) {
     case PURGE_CART: {

@@ -47,8 +47,10 @@ class CartWidget extends React.Component {
     let [totalItems, totalCost] = [0, 0];
     Object.entries(cart).forEach(
       ([itemId, quantity]) => {
-        totalItems += quantity;
-        totalCost += (mainItemDetails[itemId].price * quantity);
+        if (itemId in mainItemDetails) {
+          totalItems += quantity;
+          totalCost += (mainItemDetails[itemId].price * quantity);
+        }
       },
     );
     return [totalItems, totalCost];
