@@ -51,9 +51,7 @@ const fetchNewMenuData = cart => async (dispatch) => {
         idsToRemove.push(itemId);
       }
     });
-    console.log('remove discontinued items: ', idsToRemove);
     idsToRemove.forEach((itemId) => {
-      console.log('remove item: ', itemId, ' of quantity: ',cart[itemId]);
       dispatch(removeItemFromCart(itemId, cart[itemId]));
     });
     
